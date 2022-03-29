@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 676040584433947236}
   - component: {fileID: 1623164240835313735}
   m_Layer: 0
-  m_Name: AudioManager
+  m_Name: SoundManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,3 +43,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3f1ae2a026e449abaae87387cde8f04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bgm: {fileID: 0}
+  gun: {fileID: 0}
