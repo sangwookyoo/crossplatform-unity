@@ -11,16 +11,16 @@ public class UIManager : MonoBehaviour
     {
         get
         {
-            if (UIManager._instance == null)
+            if (_instance == null)
             {
-                UIManager._instance = new UIManager();
+                _instance = new UIManager();
             }
-            return UIManager._instance;
+            return _instance;
         }
     }
 
     void Awake()
     {
-        UIManager._instance = this;
+        _instance = this;
     }
 }

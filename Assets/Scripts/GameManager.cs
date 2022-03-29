@@ -11,16 +11,16 @@ public class GameManager : MonoBehaviour
     {
         get
         {
-            if (GameManager._instance == null)
+            if (_instance == null)
             {
-                GameManager._instance = new GameManager();
+                _instance = new GameManager();
             }
-            return GameManager._instance;
+            return _instance;
         }
     }
 
     void Awake()
     {
-        GameManager._instance = this;
+        _instance = this;
     }
 }

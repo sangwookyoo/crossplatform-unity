@@ -11,16 +11,16 @@ public class NetworkManager : MonoBehaviour
     {
         get
         {
-            if (NetworkManager._instance == null)
+            if (_instance == null)
             {
-                NetworkManager._instance = new NetworkManager();
+                _instance = new NetworkManager();
             }
-            return NetworkManager._instance;
+            return _instance;
         }
     }
 
     void Awake()
     {
-        NetworkManager._instance = this;
+        _instance = this;
     }
 }

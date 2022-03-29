@@ -11,16 +11,16 @@ public class RPCManager : MonoBehaviour
     {
         get
         {
-            if (RPCManager._instance == null)
+            if (_instance == null)
             {
-                RPCManager._instance = new RPCManager();
+                _instance = new RPCManager();
             }
-            return RPCManager._instance;
+            return _instance;
         }
     }
 
     void Awake()
     {
-        RPCManager._instance = this;
+        _instance = this;
     }
 }
