@@ -4,15 +4,23 @@ using UnityEngine;
 
 public class RPCManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    /* Singleton */
+    private static RPCManager _instance;
+
+    public static RPCManager Instance
     {
-        
+        get
+        {
+            if (RPCManager._instance == null)
+            {
+                RPCManager._instance = new RPCManager();
+            }
+            return RPCManager._instance;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    void Awake()
     {
-        
+        RPCManager._instance = this;
     }
 }
