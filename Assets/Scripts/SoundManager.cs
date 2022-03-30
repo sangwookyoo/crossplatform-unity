@@ -13,9 +13,6 @@ public class SoundManager : MonoBehaviour
 {
     private AudioSource[] _audioSources = new AudioSource[(int)Sound.MaxCount];
 
-    /* Object Pooling */
-    Dictionary<string, AudioClip> _audioClips = new Dictionary<string, AudioClip>();
-
     /* Singleton */
     private static SoundManager _instance;
 
@@ -78,18 +75,6 @@ public class SoundManager : MonoBehaviour
         {
             audioSource.PlayOneShot(audioClip);
         }
-    }
-
-    // TODO: Call when the scene changes.
-    public void Clear()
-    {
-        foreach (AudioSource audioSource in _audioSources)
-        {
-            audioSource.clip = null;
-            audioSource.Stop();
-        }
-
-        _audioClips.Clear();
     }
 
     #region Sound
