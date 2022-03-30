@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     CharacterController characterController;
-    
+
     void Start()
     {
         characterController = this.gameObject.GetComponent<CharacterController>();
@@ -13,11 +13,27 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        Move();
+        BlendAnimation();
+    }
+
+    void LateUpdate()
+    {
+        // TODO: Camera
+    }
+
+    public void Move()
+    {
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
         Vector3 dir = new Vector3(h, 0, v).normalized;
 
-        characterController.Move(dir * Time.deltaTime);
+        characterController.Move(dir * Time.deltaTime * 5);
+    }
+
+    public void BlendAnimation()
+    {
+        
     }
 }
