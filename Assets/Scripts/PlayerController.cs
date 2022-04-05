@@ -6,14 +6,17 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5;
+    public PlayerDataScriptableObject playerDataScriptableObject;
 
+    private GameObject _playerObject;
     private Vector2 _moveDir;
     private CharacterController _characterController;
+    private Animator _animator;
     private PlayerInpuActions _playerInputActions;
     private InputAction _move;
     private InputAction _fire;
 
-    private void OnEnable()
+    void OnEnable()
     {
         _move = _playerInputActions.Player.Move;
         _move.Enable();
@@ -23,7 +26,7 @@ public class PlayerController : MonoBehaviour
         _fire.performed += Fire;
     }
 
-    private void OnDisable()
+    void OnDisable()
     {
         _move.Disable();
         _fire.Disable();
@@ -37,12 +40,13 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         _characterController = this.gameObject.GetComponent<CharacterController>();
+        _animator = this.gameObject.GetComponent<Animator>();
     }
 
     void Update()
     {
         Move();
-        BlendAnimation();
+        // BlendAnimation();
     }
 
     void LateUpdate()
@@ -50,19 +54,41 @@ public class PlayerController : MonoBehaviour
         // TODO: Camera
     }
 
-    public void Move()
+    public void LoadingPlayer() {
+        _playerObject = Instantiate(playerDataScriptableObject.playerObject[0]) as GameObject;
+
+        _playerObject.transform.SetParent(this.transform);
+        _playerObject.transform.localScale = new Vector3(1, 1, 1);
+        _playerObject.transform.localPosition = Vector3.zero;
+        _playerObject.transform.localRotation = Quaternion.identity;
+    }
+
+    void SetAnimater() {
+
+    }
+
+    void Move()
     {
         _moveDir = _move.ReadValue<Vector2>();
         Vector3 moveDir = new Vector3(_moveDir.x, 0, _moveDir.y).normalized;
         _characterController.Move(moveDir * Time.deltaTime * 5);
     }
 
-    public void BlendAnimation()
+    void BlendAnimation()
     {
+        // _animator.SetBool("isMove", true);
 
+        _moveDir = _move.ReadValue<Vector2>();
+        Vector3 moveDir = new Vector3(_moveDir.x, 0, _moveDir.y).normalized;
+
+        float h = Input.GetAxis("Horizontal") * Time.deltaTime * 5;
+        float v = Input.GetAxis("Vertical") * Time.deltaTime * 5;
+
+        _animator.SetFloat("xDir", h);
+        _animator.SetFloat("zDir", v);
     }
 
-    public void Fire(InputAction.CallbackContext context)
+    void Fire(InputAction.CallbackContext context)
     {
         Debug.Log("Fire!");
     }
