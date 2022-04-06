@@ -6,10 +6,16 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5;
+    public float jumpPower = 2;
+    public float gravity = -9.8f;
     public PlayerDataScriptableObject playerDataScriptableObject;
 
     private GameObject _playerObject;
     private Vector2 _moveDir;
+    private float _yVelocity = 0;
+    private int _currentJumpCount = 0;
+    private int _maxJumpCount = 2;
+
     private CharacterController _characterController;
     private Animator _animator;
     private PlayerInpuActions _playerInputActions;
@@ -46,7 +52,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Move();
-        // BlendAnimation();
+        // BlendTree();
     }
 
     void LateUpdate()
@@ -54,7 +60,8 @@ public class PlayerController : MonoBehaviour
         // TODO: Camera
     }
 
-    public void LoadingPlayer() {
+    public void LoadingPlayer()
+    {
         _playerObject = Instantiate(playerDataScriptableObject.playerObject[0]) as GameObject;
 
         _playerObject.transform.SetParent(this.transform);
@@ -63,7 +70,8 @@ public class PlayerController : MonoBehaviour
         _playerObject.transform.localRotation = Quaternion.identity;
     }
 
-    void SetAnimater() {
+    void SetAnimater()
+    {
 
     }
 
@@ -71,18 +79,35 @@ public class PlayerController : MonoBehaviour
     {
         _moveDir = _move.ReadValue<Vector2>();
         Vector3 moveDir = new Vector3(_moveDir.x, 0, _moveDir.y).normalized;
-        _characterController.Move(moveDir * Time.deltaTime * 5);
+        moveDir = Camera.main.transform.TransformDirection(moveDir);
+
+        if (_characterController.collisionFlags == CollisionFlags.Below)
+        {
+            _yVelocity = 0;
+            _currentJumpCount = 0;
+        }
+
+        if (Input.GetButtonDown("Jump") && _currentJumpCount < _maxJumpCount)
+        {
+
+            _currentJumpCount++;
+            _yVelocity = jumpPower;
+        }
+
+        _yVelocity += gravity * Time.deltaTime;
+        moveDir.y = _yVelocity;
+        _characterController.Move(moveDir * Time.deltaTime * moveSpeed);
     }
 
-    void BlendAnimation()
+    void BlendTree()
     {
         // _animator.SetBool("isMove", true);
 
         _moveDir = _move.ReadValue<Vector2>();
         Vector3 moveDir = new Vector3(_moveDir.x, 0, _moveDir.y).normalized;
 
-        float h = Input.GetAxis("Horizontal") * Time.deltaTime * 5;
-        float v = Input.GetAxis("Vertical") * Time.deltaTime * 5;
+        float h = Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;
+        float v = Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
 
         _animator.SetFloat("xDir", h);
         _animator.SetFloat("zDir", v);
