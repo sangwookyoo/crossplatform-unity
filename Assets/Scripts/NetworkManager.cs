@@ -21,14 +21,12 @@ public class NetworkManager : MonoBehaviour
 
     void Awake()
     {
-        _instance = this;
-
         if (_instance == null)
         {
             _instance = this;
             DontDestroyOnLoad(this.gameObject);
-
         }
+        
         else
         {
             Destroy(this);
