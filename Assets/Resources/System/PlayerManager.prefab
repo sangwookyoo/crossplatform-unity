@@ -43,6 +43,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a3428cd275ef4793ba0f5e0d48ef017, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerPrefab: {fileID: 7874847147590966307, guid: 2c3f652d3f61c40c38caa6ebde5d3a3c, type: 3}
+  _playerController: {fileID: 0}
   playerDataScriptableObject: {fileID: 11400000, guid: afc54e17ede5049e295571bf8080179c, type: 2}
-  playerObject: {fileID: 0}
+  moveSpeed: 5
+  gravity: -9.8
+  jumpPower: 2
+  maxJumpCount: 2
+  slopeLimit: 45
+  stepOffset: 0.3
+  skinWidth: 0.08
+  minMoveDistance: 0.001
+  radius: 0.23
+  height: 1.8
+  center: {x: 0, y: 1, z: 0}
+  MainCamera: {fileID: 4319469908567844109, guid: ae8d5a2aff688b74099b55dff6fbbc43, type: 3}
+  runtimeAnimatorController: {fileID: 9100000, guid: 09e1536f567a94a6489ed2213125911a, type: 2}
+  avatar: {fileID: 9000000, guid: 3ded96b643fc743e69ac7596d3c04643, type: 3}
+  eventSystem: {fileID: 0}
