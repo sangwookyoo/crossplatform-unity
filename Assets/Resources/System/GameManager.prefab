@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4528199376785293327}
   - component: {fileID: 1630867421480381029}
   m_Layer: 0
-  m_Name: GamaManager
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,5 +43,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01512560bf6af4d5c8ffa08c7a099057, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerData: {fileID: 11400000, guid: afc54e17ede5049e295571bf8080179c, type: 2}
-  playerObject: {fileID: 0}
+  UIManagerObj: {fileID: 7658744871855539690, guid: 08d64bbf7dfc4449685b170a461c8d03, type: 3}
+  SoundManagerObj: {fileID: 6342407847211473160, guid: c82d5510cf9c44cdfbdf80ba2898b023, type: 3}

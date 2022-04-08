@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Modules")]
+    UIManager UIManager;
+    SoundManager SoundManager;
+
+    [Header("Modules Object")]
+    public GameObject UIManagerObj;
+    public GameObject SoundManagerObj;
+
     /* Singleton */
     private static GameManager _instance;
 
@@ -21,17 +29,22 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        _instance = this;
-
         if (_instance == null)
         {
             _instance = this;
             DontDestroyOnLoad(this.gameObject);
-
         }
+
         else
         {
             Destroy(this);
         }
+
+        UIManager = GetClone(UIManagerObj).GetComponent<UIManager>();
+        SoundManager = GetClone(SoundManagerObj).GetComponent<SoundManager>();
+    }
+    
+    GameObject GetClone(GameObject Obj) {
+        return Instantiate(Obj) as GameObject;
     }
 }
