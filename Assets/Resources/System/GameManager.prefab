@@ -43,5 +43,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01512560bf6af4d5c8ffa08c7a099057, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCamera: {fileID: 0}
+  PlayerManager: {fileID: 0}
+  UIManager: {fileID: 0}
+  SoundManager: {fileID: 0}
+  PlayerManagerObj: {fileID: 3945017922557513839, guid: 1b50b0cc9bf3a416096354163aaa6729, type: 3}
   UIManagerObj: {fileID: 7658744871855539690, guid: 08d64bbf7dfc4449685b170a461c8d03, type: 3}
   SoundManagerObj: {fileID: 6342407847211473160, guid: c82d5510cf9c44cdfbdf80ba2898b023, type: 3}
