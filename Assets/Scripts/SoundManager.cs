@@ -41,10 +41,10 @@ public class SoundManager : MonoBehaviour
             Destroy(this);
         }
         
-        Init();
+        InitSound();
     }
 
-    public void Init()
+    public void InitSound()
     {
         GameObject root = GameObject.Find("@SoundManager");
 
