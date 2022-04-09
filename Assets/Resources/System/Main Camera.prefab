@@ -11,8 +11,6 @@ GameObject:
   - component: {fileID: 4319469908567844106}
   - component: {fileID: 4319469908567844109}
   - component: {fileID: 4319469908567844108}
-  - component: {fileID: 2208390738256325338}
-  - component: {fileID: 3719024389521087690}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -57,7 +55,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 1
+  near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -85,28 +83,3 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4319469908567844111}
   m_Enabled: 1
---- !u!114 &2208390738256325338
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4319469908567844111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29fece8039c3cdc408efc4d17517e04e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &3719024389521087690
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4319469908567844111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f2f12b594f6b4c939ef0e91da6a857c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _cameraRotateSpeed: 200

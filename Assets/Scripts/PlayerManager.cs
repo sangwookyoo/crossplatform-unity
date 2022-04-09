@@ -6,17 +6,14 @@ using UnityEngine.EventSystems;
 
 public class PlayerManager : MonoBehaviour
 {
-    [HideInInspector]
-    [Header("Player Controller")]
-    public PlayerController _playerController;
-
     [Header("Player Object")]
     public PlayerDataScriptableObject playerDataScriptableObject;
 
     [Header("Player Settings")]
-    public float moveSpeed = 5;
+    public float sensitivity = 200f;
+    public float moveSpeed = 8f;
     public float gravity = -9.8f;
-    public float jumpPower = 2;
+    public float jumpPower = 2f;
     public int maxJumpCount = 2;
 
     [Header("CharacterController Settings")]
@@ -29,10 +26,11 @@ public class PlayerManager : MonoBehaviour
     public Vector3 center = new Vector3(0f, 0.9f, 0f);
 
     [Header("Camera Object")]
-    public Camera MainCamera;
+    public GameObject mainCameraObject;
 
     [Header("Camera Settings")]
-    // TODO: zoom etc...
+    public Vector3 firstPersonCameraOffset = new Vector3(0f, 1.8f, 0.3f);
+    public Vector3 thirdPersonCameraOffset = new Vector3(0f, 2f, -2f);
 
     [Header("Animator Settings")]
     public RuntimeAnimatorController runtimeAnimatorController;
@@ -42,7 +40,13 @@ public class PlayerManager : MonoBehaviour
     public PlayerInpuActions playerInputActions;
     public EventSystem eventSystem;
 
-    [Header("Singleton")]
+    [HideInInspector]
+    public GameObject player;
+    public Camera mainCamera;
+
+    private PlayerController _playerController;
+
+    // Singleton
     private static PlayerManager _instance;
 
     public static PlayerManager Instance
@@ -78,9 +82,14 @@ public class PlayerManager : MonoBehaviour
 
     void LoadPlayer()
     {
-        GameObject player = Instantiate(playerDataScriptableObject.playerObject[0]) as GameObject;
+        player = Instantiate(playerDataScriptableObject.playerObject[0]) as GameObject;
+        player.gameObject.name = "Player";
         player.transform.localPosition = Vector3.zero;
         player.transform.localRotation = Quaternion.identity;
-        _playerController = player.AddComponent<PlayerController>();
+        player.AddComponent<PlayerController>();
+
+        mainCamera = Instantiate(PlayerManager.Instance.mainCamera) as Camera;
+        mainCamera.transform.SetParent(player.transform);
+        mainCamera.transform.localPosition = PlayerManager.Instance.thirdPersonCameraOffset;
     }
 }
