@@ -44,8 +44,6 @@ public class PlayerManager : MonoBehaviour
     public GameObject player;
     public Camera mainCamera;
 
-    private PlayerController _playerController;
-
     // Singleton
     private static PlayerManager _instance;
 
@@ -91,5 +89,7 @@ public class PlayerManager : MonoBehaviour
         mainCamera = Instantiate(PlayerManager.Instance.mainCamera) as Camera;
         mainCamera.transform.SetParent(player.transform);
         mainCamera.transform.localPosition = PlayerManager.Instance.thirdPersonCameraOffset;
+
+        Instantiate(eventSystem);
     }
 }

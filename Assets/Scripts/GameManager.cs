@@ -6,17 +6,7 @@ using System;
 
 public class GameManager : MonoBehaviour
 {
-    public bool isFirst = false;
-
-    [Header("Modules")]
-    public UIManager UIManager;
-    public SoundManager SoundManager;
-
-    [Header("Modules Object")]
-    public GameObject UIManagerObj;
-    public GameObject SoundManagerObj;
-
-    /* Singleton */
+    // Singleton
     private static GameManager _instance;
 
     public static GameManager Instance
@@ -43,14 +33,6 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this);
         }
-
-        UIManager = GetClone(UIManagerObj).GetComponent<UIManager>();
-        SoundManager = GetClone(SoundManagerObj).GetComponent<SoundManager>();
-    }
-
-    GameObject GetClone(GameObject Obj)
-    {
-        return Instantiate(Obj) as GameObject;
     }
 
     void Start()
@@ -69,27 +51,27 @@ public class GameManager : MonoBehaviour
     {
         int num = 1;
 
-        UIManager.button.onClick.AddListener(() =>
+        UIManager.Instance.button.onClick.AddListener(() =>
         {
-            GameObject.Instantiate(UIManager.userInfoObject, UIManager.userInfoContent);
+            GameObject.Instantiate(UIManager.Instance.userInfoObject, UIManager.Instance.userInfoContent);
         });
 
-        UIManager.button01.onClick.AddListener(() =>
+        UIManager.Instance.button01.onClick.AddListener(() =>
         {
-            StartCoroutine(UIManager.ScreenCoroutine("Screen Test Num: " + num, 5f));
+            StartCoroutine(UIManager.Instance.ScreenCoroutine("Screen Test Num: " + num, 5f));
             num++;
         });
 
-        UIManager.button02.onClick.AddListener(() =>
+        UIManager.Instance.button02.onClick.AddListener(() =>
         {
-            StartCoroutine(UIManager.SystemCoroutine("System Test Num: " + num, 3f));
+            StartCoroutine(UIManager.Instance.SystemCoroutine("System Test Num: " + num, 3f));
             num++;
         });
     }
 
     void ChangeView()
     {
-        UIManager.changeViewButton.onClick.AddListener(() =>
+        UIManager.Instance.changeViewButton.onClick.AddListener(() =>
         {
             // PlayerManager.Instance.mainCamera.transform.localPosition = PlayerManager.Instance.firstPersonCameraOffset;
         });
@@ -97,7 +79,7 @@ public class GameManager : MonoBehaviour
 
     void Clock()
     {
-        UIManager.clockText.text = DateTime.Now.ToString("tt h : mm : ss");
+        UIManager.Instance.clockText.text = DateTime.Now.ToString("tt h : mm : ss");
     }
 
     void ChangeSensitivity()

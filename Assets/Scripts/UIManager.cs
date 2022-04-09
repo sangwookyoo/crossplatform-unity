@@ -33,6 +33,35 @@ public class UIManager : MonoBehaviour
     public Button button01;
     public Button button02;
 
+    // Singleton
+    private static UIManager _instance;
+
+    public static UIManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = new UIManager();
+            }
+            return _instance;
+        }
+    }
+
+    void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+
+        else
+        {
+            Destroy(this);
+        }
+    }
+
     void Start()
     {
         SetSafeArea();
@@ -61,7 +90,7 @@ public class UIManager : MonoBehaviour
     // StartCoroutine(ScreenCoroutine("Msg", 5f));
     public IEnumerator ScreenCoroutine(string message, float duration)
     {
-        GameObject screen = GameObject.Instantiate(screenObject, screenContent) as GameObject;
+        GameObject screen = Instantiate(screenObject, screenContent) as GameObject;
         screen.transform.Find("Message").gameObject.GetComponent<Text>().text = message;
         GameObject.Destroy(screen, duration);
         yield return null;
@@ -70,7 +99,7 @@ public class UIManager : MonoBehaviour
     // StartCoroutine(SystemCoroutine("Msg", 5f));
     public IEnumerator SystemCoroutine(string message, float duration)
     {
-        GameObject system = GameObject.Instantiate(systemObject, systemContent) as GameObject;
+        GameObject system = Instantiate(systemObject, systemContent) as GameObject;
         Text msg = system.transform.Find("Message").gameObject.GetComponent<Text>();
         msg.text = message;
 

@@ -44,8 +44,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerDataScriptableObject: {fileID: 11400000, guid: afc54e17ede5049e295571bf8080179c, type: 2}
+  sensitivity: 200
   moveSpeed: 8
-  rotateSpeed: 200
   gravity: -9.8
   jumpPower: 2
   maxJumpCount: 2
@@ -56,10 +56,11 @@ MonoBehaviour:
   radius: 0.23
   height: 1.8
   center: {x: 0, y: 1, z: 0}
-  mainCamera: {fileID: 4319469908567844109, guid: ae8d5a2aff688b74099b55dff6fbbc43, type: 3}
-  cameraRotateSpeed: 200
+  mainCameraObject: {fileID: 0}
   firstPersonCameraOffset: {x: 0, y: 1.8, z: 0.3}
   thirdPersonCameraOffset: {x: 0, y: 2, z: -2}
   runtimeAnimatorController: {fileID: 9100000, guid: 09e1536f567a94a6489ed2213125911a, type: 2}
   avatar: {fileID: 9000000, guid: 5917c0e93d180a842b61d1ebc62a195c, type: 3}
-  eventSystem: {fileID: 0}
+  eventSystem: {fileID: 7531537078465323126, guid: 965df482e6bc6ed40b25b255de78b5b3, type: 3}
+  player: {fileID: 0}
+  mainCamera: {fileID: 4319469908567844109, guid: ae8d5a2aff688b74099b55dff6fbbc43, type: 3}
