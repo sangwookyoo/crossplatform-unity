@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     private float _jumpPower;
     private int _maxJumpCount;
     private Camera _mainCamera;
+    private Camera _renderCamera;
 
     // PlayerController Property
     private float _bodyAngle;
@@ -80,6 +81,7 @@ public class PlayerController : MonoBehaviour
     void LateUpdate()
     {
         SetBlendTree();
+        SetRenderCamera();
         // TODO: Camera
     }
 
@@ -99,6 +101,7 @@ public class PlayerController : MonoBehaviour
 
         // Camera Settings
         _mainCamera = PlayerManager.Instance.mainCamera;
+        _renderCamera = PlayerManager.Instance.renderCamera;
 
         // CharacterController Settings
         _characterController = this.gameObject.AddComponent<CharacterController>();
@@ -188,6 +191,11 @@ public class PlayerController : MonoBehaviour
 
         _animator.SetFloat("xDir", _playerInput.x);
         _animator.SetFloat("zDir", _playerInput.y);
+    }
+
+    void SetRenderCamera()
+    {
+        _renderCamera.transform.LookAt(this.transform);
     }
 
     void Fire(InputAction.CallbackContext context)

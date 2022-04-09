@@ -26,7 +26,8 @@ public class PlayerManager : MonoBehaviour
     public Vector3 center = new Vector3(0f, 0.9f, 0f);
 
     [Header("Camera Object")]
-    public GameObject mainCameraObject;
+    public Camera mainCameraObject;
+    public Camera renderCameraObject;
 
     [Header("Camera Settings")]
     public Vector3 firstPersonCameraOffset = new Vector3(0f, 1.8f, 0.3f);
@@ -42,7 +43,10 @@ public class PlayerManager : MonoBehaviour
 
     [HideInInspector]
     public GameObject player;
+    [HideInInspector]
     public Camera mainCamera;
+    [HideInInspector]
+    public Camera renderCamera;
 
     // Singleton
     private static PlayerManager _instance;
@@ -86,9 +90,11 @@ public class PlayerManager : MonoBehaviour
         player.transform.localRotation = Quaternion.identity;
         player.AddComponent<PlayerController>();
 
-        mainCamera = Instantiate(PlayerManager.Instance.mainCamera) as Camera;
+        mainCamera = Instantiate(mainCameraObject) as Camera;
         mainCamera.transform.SetParent(player.transform);
         mainCamera.transform.localPosition = PlayerManager.Instance.thirdPersonCameraOffset;
+
+        renderCamera = Instantiate(renderCameraObject) as Camera;
 
         Instantiate(eventSystem);
     }
