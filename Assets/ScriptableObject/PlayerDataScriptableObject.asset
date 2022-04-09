@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: PlayerDataScriptableObject
   m_EditorClassIdentifier: 
   playerObject:
-  - {fileID: 919132149155446097, guid: 73c222d4355fc48f39d11217b48dad74, type: 3}
+  - {fileID: 1260597861999642, guid: d6d06c887a1aae94f8c6e8cc2c0c557b, type: 3}
