@@ -84,17 +84,16 @@ public class GameManager : MonoBehaviour
 
     void ChangeSensitivity()
     {
-        if (PlayerManager.Instance.sensitivity > 0)
+        if ((Input.GetKeyDown(KeyCode.LeftBracket)) && (0f < PlayerManager.Instance.sensitivity))
         {
-            if (Input.GetKeyDown(KeyCode.LeftBracket))
-            {
-                PlayerManager.Instance.sensitivity -= 10f;
-            }
+            PlayerManager.Instance.sensitivity -= 10f;
+            StartCoroutine(UIManager.Instance.SystemCoroutine("마우스 감도: " + (int)PlayerManager.Instance.sensitivity / 10, 3f));
+        }
 
-            if (Input.GetKeyDown(KeyCode.RightBracket))
-            {
-                PlayerManager.Instance.sensitivity += 10f;
-            }
+        if ((Input.GetKeyDown(KeyCode.RightBracket)) && (PlayerManager.Instance.sensitivity < 1000f))
+        {
+            PlayerManager.Instance.sensitivity += 10f;
+            StartCoroutine(UIManager.Instance.SystemCoroutine("마우스 감도: " + (int)PlayerManager.Instance.sensitivity / 10, 3f));
         }
     }
 }
