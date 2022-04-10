@@ -31,7 +31,8 @@ public class PlayerManager : MonoBehaviour
 
     [Header("Camera Settings")]
     public Vector3 firstPersonCameraOffset = new Vector3(0f, 1.8f, 0.3f);
-    public Vector3 thirdPersonCameraOffset = new Vector3(0f, 2f, -2f);
+    public Vector3 thirdPersonCameraOffset = new Vector3(0f, 2f, -3.5f);
+    public bool renderCameraX, renderCameraY, renderCameraZ;
 
     [Header("Animator Settings")]
     public RuntimeAnimatorController runtimeAnimatorController;

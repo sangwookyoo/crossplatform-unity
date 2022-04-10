@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private int _maxJumpCount;
     private Camera _mainCamera;
     private Camera _renderCamera;
+    private bool _renderCameraX, _renderCameraY, _renderCameraZ;
 
     // PlayerController Property
     private float _bodyAngle;
@@ -102,6 +103,9 @@ public class PlayerController : MonoBehaviour
         // Camera Settings
         _mainCamera = PlayerManager.Instance.mainCamera;
         _renderCamera = PlayerManager.Instance.renderCamera;
+        _renderCameraX = PlayerManager.Instance.renderCameraX;
+        _renderCameraY = PlayerManager.Instance.renderCameraY;
+        _renderCameraZ = PlayerManager.Instance.renderCameraZ;
 
         // CharacterController Settings
         _characterController = this.gameObject.AddComponent<CharacterController>();
@@ -195,7 +199,11 @@ public class PlayerController : MonoBehaviour
 
     void SetRenderCamera()
     {
-        _renderCamera.transform.LookAt(this.transform);
+        _renderCamera.transform.position = new Vector3(
+            (_renderCameraX ? transform.position.x : _renderCamera.transform.position.x),
+            (_renderCameraY ? transform.position.y : _renderCamera.transform.position.y),
+            (_renderCameraZ ? transform.position.z : _renderCamera.transform.position.z)
+        );
     }
 
     void Fire(InputAction.CallbackContext context)
