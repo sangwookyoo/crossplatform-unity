@@ -6,6 +6,8 @@ using System;
 
 public class GameManager : MonoBehaviour
 {
+    public bool isFirst = false;
+
     // Singleton
     private static GameManager _instance;
 
@@ -73,7 +75,12 @@ public class GameManager : MonoBehaviour
     {
         UIManager.Instance.changeViewButton.onClick.AddListener(() =>
         {
-            // PlayerManager.Instance.mainCamera.transform.localPosition = PlayerManager.Instance.firstPersonCameraOffset;
+            Vector3 firstPersonCameraOffset = PlayerManager.Instance.firstPersonCameraOffset;
+            Vector3 thirdPersonCameraOffset = PlayerManager.Instance.thirdPersonCameraOffset;
+
+            PlayerManager.Instance.mainCamera.transform.localPosition = (
+                (PlayerManager.Instance.mainCamera.transform.localPosition == thirdPersonCameraOffset) ? firstPersonCameraOffset : thirdPersonCameraOffset
+            );
         });
     }
 
