@@ -87,6 +87,16 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    public void PlayWithSpatialBlend(AudioSource audioSource, AudioClip audioClip, float pitch = 1.0f)
+    {
+        audioSource.pitch = pitch;
+        audioSource.spatialBlend = 1;
+        audioSource.rolloffMode = AudioRolloffMode.Linear;
+        audioSource.minDistance = 1;
+        audioSource.maxDistance = 20;
+        audioSource.PlayOneShot(audioClip);
+    }
+
     #region Sound
     public AudioClip bgm;
     public AudioClip gun;
