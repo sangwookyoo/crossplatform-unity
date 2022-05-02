@@ -111,4 +111,32 @@ public class UIManager : MonoBehaviour
 
         GameObject.Destroy(system, duration);
     }
+
+    public IEnumerator FadeInCoroutine(GameObject targetObj, float duration)
+    {
+        if (targetObj == null) yield return this;
+        if (targetObj.activeSelf == true) yield return this;
+        targetObj.SetActive(true);
+        targetObj.GetComponent<CanvasGroup>().alpha = 0;
+
+        while (targetObj.GetComponent<CanvasGroup>().alpha < 1.0f)
+        {
+            targetObj.GetComponent<CanvasGroup>().alpha += 1.0f / duration * Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    public IEnumerator FadeOutCoroutine(GameObject targetObj, float duration)
+    {
+        if (targetObj == null) yield return this;
+        if (targetObj.activeSelf == false) yield return this;
+        targetObj.SetActive(true);
+        targetObj.GetComponent<CanvasGroup>().alpha = 0;
+
+        while (targetObj.GetComponent<CanvasGroup>().alpha > 0.0f)
+        {
+            targetObj.GetComponent<CanvasGroup>().alpha -= 1.0f / duration * Time.deltaTime;
+            yield return null;
+        }
+    }
 }
