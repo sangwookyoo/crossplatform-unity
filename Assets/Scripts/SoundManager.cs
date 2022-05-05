@@ -97,7 +97,7 @@ public class SoundManager : MonoBehaviour
         audioSource.PlayOneShot(audioClip);
     }
 
-    #region Sound
+    #region Sound Resources
     public AudioClip bgm;
     public AudioClip gun;
 
