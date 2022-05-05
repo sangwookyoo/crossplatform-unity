@@ -25,15 +25,14 @@ public class PlayerController : MonoBehaviour
     private int _currentJumpCount = 0;
     private PlayerState _state = PlayerState.IDLE;
 
-    // PlayerController Input
-    private PlayerInpuActions _playerInputActions;
-    private InputAction _move;
-    private InputAction _fire;
-    private Vector2 _playerInput;
-
     // PlayerController Components
     private CharacterController _characterController;
     private Animator _animator;
+
+    // InputManager CallBack Property
+    private Vector2 _move;
+    private Vector2 _look;
+    private bool _jump;
 
     enum PlayerState
     {
@@ -41,27 +40,6 @@ public class PlayerController : MonoBehaviour
         MOVE = 1,
         JUMP = 2,  // TODO
         SIZE
-    }
-
-    void OnEnable()
-    {
-        _move = _playerInputActions.Player.Move;
-        _move.Enable();
-
-        _fire = _playerInputActions.Player.Fire;
-        _fire.Enable();
-        _fire.performed += Fire;
-    }
-
-    void OnDisable()
-    {
-        _move.Disable();
-        _fire.Disable();
-    }
-
-    void Awake()
-    {
-        _playerInputActions = new PlayerInpuActions();
     }
 
     void Start()
@@ -72,8 +50,6 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Move();
-        RotateBody();
-        RotateCamera();
         SetPlayerFSM();
         SetPlayerState();
         SetPlayerSettings();
@@ -81,9 +57,10 @@ public class PlayerController : MonoBehaviour
 
     void LateUpdate()
     {
+        RotateBody();
+        RotateCamera();
         SetBlendTree();
         SetRenderCamera();
-        // TODO: Camera
     }
 
     void SetPlayerSettings()
@@ -95,6 +72,8 @@ public class PlayerController : MonoBehaviour
     void GetPlayerSettings()
     {
         // Player Settings
+        sensitivity = PlayerManager.Instance.sensitivity;
+
         _moveSpeed = PlayerManager.Instance.moveSpeed;
         _gravity = PlayerManager.Instance.gravity;
         _jumpPower = PlayerManager.Instance.jumpPower;
@@ -125,8 +104,11 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
-        _playerInput = _move.ReadValue<Vector2>();
-        Vector3 moveDir = new Vector3(_playerInput.x, 0, _playerInput.y).normalized;
+        // InputManager CallBack
+        _move = InputManager.Instance.move;
+        _jump = InputManager.Instance.jump;
+
+        Vector3 moveDir = new Vector3(_move.x, 0, _move.y).normalized;
         moveDir = _mainCamera.transform.TransformDirection(moveDir);
 
         if (_characterController.collisionFlags == CollisionFlags.Below)
@@ -135,7 +117,7 @@ public class PlayerController : MonoBehaviour
             _currentJumpCount = 0;
         }
 
-        if (Input.GetButtonDown("Jump") && _currentJumpCount < _maxJumpCount)
+        if (_jump && _currentJumpCount < _maxJumpCount)
         {
             _currentJumpCount++;
             _yVelocity = _jumpPower;
@@ -148,13 +130,15 @@ public class PlayerController : MonoBehaviour
 
     void RotateBody()
     {
-        _bodyAngle += Input.GetAxis("Mouse X") * Time.deltaTime * sensitivity;
+        _look = InputManager.Instance.look;
+        _bodyAngle += _look.x * Time.deltaTime * sensitivity;
         this.transform.localEulerAngles = new Vector3(0, _bodyAngle, 0);
     }
 
     void RotateCamera()
     {
-        _cameraAngle += Input.GetAxis("Mouse Y") * Time.deltaTime * sensitivity;
+        _look = InputManager.Instance.look;
+        _cameraAngle += _look.y * Time.deltaTime * sensitivity;
         _cameraAngle = Mathf.Clamp(_cameraAngle, -60, 60);
         _mainCamera.transform.localEulerAngles = new Vector3(-_cameraAngle, 0, 0);
     }
@@ -179,7 +163,9 @@ public class PlayerController : MonoBehaviour
 
     void SetPlayerState()
     {
-        if (_playerInput == Vector2.zero)
+        _move = InputManager.Instance.move;
+
+        if (_move == Vector2.zero)
         {
             _state = PlayerState.IDLE;
         }
@@ -191,10 +177,10 @@ public class PlayerController : MonoBehaviour
 
     void SetBlendTree()
     {
-        _playerInput = _move.ReadValue<Vector2>();
+        _move = InputManager.Instance.move;
 
-        _animator.SetFloat("xDir", _playerInput.x);
-        _animator.SetFloat("zDir", _playerInput.y);
+        _animator.SetFloat("xDir", _move.x);
+        _animator.SetFloat("zDir", _move.y);
     }
 
     void SetRenderCamera()
@@ -204,10 +190,5 @@ public class PlayerController : MonoBehaviour
             (_renderCameraY ? transform.position.y : _renderCamera.transform.position.y),
             (_renderCameraZ ? transform.position.z : _renderCamera.transform.position.z)
         );
-    }
-
-    void Fire(InputAction.CallbackContext context)
-    {
-        Debug.Log("Fire!");
     }
 }

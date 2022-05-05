@@ -6,6 +6,8 @@ using System;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject inputManager;
+    public GameObject playerManager;
     public bool isFirst = false;
 
     // Singleton
@@ -35,6 +37,9 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this);
         }
+
+        Instantiate(inputManager);
+        Instantiate(playerManager);
     }
 
     void Start()
@@ -93,14 +98,14 @@ public class GameManager : MonoBehaviour
     {
         if ((Input.GetKeyDown(KeyCode.LeftBracket)) && (0f < PlayerManager.Instance.sensitivity))
         {
-            PlayerManager.Instance.sensitivity -= 10f;
-            StartCoroutine(UIManager.Instance.SystemCoroutine("마우스 감도: " + (int)PlayerManager.Instance.sensitivity / 10, 3f));
+            PlayerManager.Instance.sensitivity -= 1f;
+            StartCoroutine(UIManager.Instance.SystemCoroutine("마우스 감도: " + (int)PlayerManager.Instance.sensitivity, 3f));
         }
 
-        if ((Input.GetKeyDown(KeyCode.RightBracket)) && (PlayerManager.Instance.sensitivity < 1000f))
+        if ((Input.GetKeyDown(KeyCode.RightBracket)) && (PlayerManager.Instance.sensitivity < 100f))
         {
-            PlayerManager.Instance.sensitivity += 10f;
-            StartCoroutine(UIManager.Instance.SystemCoroutine("마우스 감도: " + (int)PlayerManager.Instance.sensitivity / 10, 3f));
+            PlayerManager.Instance.sensitivity += 1f;
+            StartCoroutine(UIManager.Instance.SystemCoroutine("마우스 감도: " + (int)PlayerManager.Instance.sensitivity, 3f));
         }
     }
 }
