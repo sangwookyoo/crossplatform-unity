@@ -87,7 +87,7 @@ public class UIManager : MonoBehaviour
         #endif
 
         // TODO: Check activeSelf
-        #if UNITY_EDITOR
+        #if UNITY_EDITOR || UNITY_STANDALONE
             uiController.SetActive(true);
         #endif
     }
