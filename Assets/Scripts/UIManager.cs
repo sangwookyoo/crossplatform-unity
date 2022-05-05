@@ -6,6 +6,9 @@ using System;
 
 public class UIManager : MonoBehaviour
 {
+    [Header("UI Controller")]
+    public GameObject uiController;
+
     [Header("Safe Area")]
     [Tooltip("For Notch Design")]
     public GameObject safeAreaObject;
@@ -32,6 +35,7 @@ public class UIManager : MonoBehaviour
     public Button button;
     public Button button01;
     public Button button02;
+
 
     // Singleton
     private static UIManager _instance;
@@ -64,12 +68,28 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
+        SetUIController();
         SetSafeArea();
     }
 
     void Update()
     {
 
+    }
+
+    void SetUIController()
+    {
+        Debug.Log("Play in " + Application.platform);
+        if (uiController == null) return;
+
+        #if UNITY_ANDROID || UNITY_IOS
+            uiController.SetActive(true);
+        #endif
+
+        // TODO: Check activeSelf
+        #if UNITY_EDITOR
+            uiController.SetActive(true);
+        #endif
     }
 
     void SetSafeArea()
