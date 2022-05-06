@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 581d5b4e8460bcf4887fd5047364b736
+guid: 9f1540b6d2265ff419229bf3f8cf316b
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - AppleSDGothicNeoL00
+  - AppleSDGothicNeoR00
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

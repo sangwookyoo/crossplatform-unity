@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerDataScriptableObject: {fileID: 11400000, guid: afc54e17ede5049e295571bf8080179c, type: 2}
-  sensitivity: 3
+  sensitivity: 100
   moveSpeed: 8
   gravity: -9.8
   jumpPower: 2

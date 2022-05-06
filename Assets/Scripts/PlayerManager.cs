@@ -10,7 +10,7 @@ public class PlayerManager : MonoBehaviour
     public PlayerDataScriptableObject playerDataScriptableObject;
 
     [Header("Player Settings")]
-    public float sensitivity = 3f;
+    public float sensitivity = 100f;
     public float moveSpeed = 8f;
     public float gravity = -9.8f;
     public float jumpPower = 2f;

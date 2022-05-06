@@ -139,7 +139,7 @@ public class PlayerController : MonoBehaviour
     {
         _look = InputManager.Instance.look;
         _cameraAngle += _look.y * Time.deltaTime * sensitivity;
-        _cameraAngle = Mathf.Clamp(_cameraAngle, -60, 60);
+        _cameraAngle = Mathf.Clamp(_cameraAngle, -30, 30);
         _mainCamera.transform.localEulerAngles = new Vector3(-_cameraAngle, 0, 0);
     }
 
