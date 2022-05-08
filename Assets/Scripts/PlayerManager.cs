@@ -14,7 +14,7 @@ public class PlayerManager : MonoBehaviour
     public float moveSpeed = 8f;
     public float gravity = -9.8f;
     public float jumpPower = 2f;
-    public int maxJumpCount = 2;
+    public int maxJumpCount = 1;
 
     [Header("CharacterController Settings")]
     public float slopeLimit = 45f;

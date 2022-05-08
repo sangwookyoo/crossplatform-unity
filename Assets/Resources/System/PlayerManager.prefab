@@ -48,7 +48,7 @@ MonoBehaviour:
   moveSpeed: 8
   gravity: -9.8
   jumpPower: 2
-  maxJumpCount: 2
+  maxJumpCount: 1
   slopeLimit: 45
   stepOffset: 0.3
   skinWidth: 0.08

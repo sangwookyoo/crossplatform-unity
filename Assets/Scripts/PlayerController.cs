@@ -104,15 +104,17 @@ public class PlayerController : MonoBehaviour
 
     void SetPlayerState()
     {
-        // TODO: STATE PATTERN
+        // State Pattern
         switch (_state)
         {
             case PlayerState.IDLE:
                 Idle();
+                Jump();
                 break;
 
             case PlayerState.MOVE:
                 Move();
+                Jump();
                 break;
 
             default:
@@ -122,38 +124,53 @@ public class PlayerController : MonoBehaviour
 
     void Idle()
     {
-        _animator.SetInteger("State", 0);
-
         if (_move != Vector2.zero)
+        {
             _state = PlayerState.MOVE;
+        }
+        else
+        {
+            _animator.SetInteger("State", 0);
+            _moveDir = Vector3.zero;
+            _moveDir.y = _yVelocity;
+            _characterController.Move(_moveDir * Time.deltaTime * _moveSpeed);
+        }
     }
 
     void Move()
     {
-        _moveDir = new Vector3(_move.x, 0, _move.y).normalized;
-        _moveDir = _mainCamera.transform.TransformDirection(_moveDir);
+        if (_move == Vector2.zero)
+        {
+            _state = PlayerState.IDLE;
+        }
+        else
+        {
+            _animator.SetInteger("State", 1);
+            _moveDir = new Vector3(_move.x, 0, _move.y).normalized;
+            _moveDir = _mainCamera.transform.TransformDirection(_moveDir);
+            _moveDir.y = _yVelocity;
+            _characterController.Move(_moveDir * Time.deltaTime * _moveSpeed);
+        }
+    }
 
+    void Jump()
+    {
         if (_characterController.collisionFlags == CollisionFlags.Below)
         {
             _yVelocity = 0;
             _currentJumpCount = 0;
-            _animator.SetInteger("State", 1);
+            _animator.SetBool("isJump", false);
         }
 
         if (_jump && _currentJumpCount < _maxJumpCount)
         {
             _currentJumpCount++;
             _yVelocity = _jumpPower;
-            _animator.SetInteger("State", 2);
+            _animator.SetTrigger("doJump");
+            _animator.SetBool("isJump", true);
         }
 
         _yVelocity += _gravity * Time.deltaTime;
-        _moveDir.y = _yVelocity;
-        
-        _characterController.Move(_moveDir * Time.deltaTime * _moveSpeed);
-
-        if (_move == Vector2.zero)
-            _state = PlayerState.IDLE;
     }
 
     void RotateBody()
