@@ -38,7 +38,6 @@ public class PlayerController : MonoBehaviour
     {
         IDLE = 0,
         MOVE = 1,
-        JUMP = 2,
         SIZE
     }
 
