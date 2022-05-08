@@ -84,10 +84,12 @@ public class PlayerManager : MonoBehaviour
 
     void LoadPlayer()
     {
+        // TODO: playerDataScriptableObject.playerObject[ ** THIS ** ]
         player = Instantiate(playerDataScriptableObject.playerObject[0]) as GameObject;
         player.gameObject.name = "Player";
         player.transform.localPosition = Vector3.zero;
         player.transform.localRotation = Quaternion.identity;
+        if (this.gameObject.GetComponent<PlayerController>() == null)
         player.AddComponent<PlayerController>();
 
         mainCamera = Instantiate(mainCameraObject) as Camera;

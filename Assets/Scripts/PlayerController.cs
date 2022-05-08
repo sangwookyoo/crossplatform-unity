@@ -6,8 +6,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [HideInInspector]
-    public float sensitivity;
+    [HideInInspector] public float sensitivity;
 
     // PlayerManager Property
     private float _moveSpeed;
@@ -21,6 +20,7 @@ public class PlayerController : MonoBehaviour
     // PlayerController Property
     private float _bodyAngle;
     private float _cameraAngle;
+    private Vector3 _moveDir;
     private float _yVelocity = 0;
     private int _currentJumpCount = 0;
     private PlayerState _state = PlayerState.IDLE;
@@ -38,21 +38,19 @@ public class PlayerController : MonoBehaviour
     {
         IDLE = 0,
         MOVE = 1,
-        JUMP = 2,  // TODO
+        JUMP = 2,
         SIZE
     }
 
     void Start()
     {
-        GetPlayerSettings();
+        SetPlayerSettings();
     }
 
     void Update()
     {
-        Move();
-        SetPlayerFSM();
+        SetPlayerInput();
         SetPlayerState();
-        SetPlayerSettings();
     }
 
     void LateUpdate()
@@ -64,12 +62,6 @@ public class PlayerController : MonoBehaviour
     }
 
     void SetPlayerSettings()
-    {
-        // Player Settings
-        sensitivity = PlayerManager.Instance.sensitivity;
-    }
-
-    void GetPlayerSettings()
     {
         // Player Settings
         sensitivity = PlayerManager.Instance.sensitivity;
@@ -102,83 +94,83 @@ public class PlayerController : MonoBehaviour
         _animator.avatar = PlayerManager.Instance.avatar;
     }
 
-    void Move()
+    void SetPlayerInput()
     {
         // InputManager CallBack
         _move = InputManager.Instance.move;
         _jump = InputManager.Instance.jump;
+        _look = InputManager.Instance.look;
+    }
 
-        Vector3 moveDir = new Vector3(_move.x, 0, _move.y).normalized;
-        moveDir = _mainCamera.transform.TransformDirection(moveDir);
+    void SetPlayerState()
+    {
+        // TODO: STATE PATTERN
+        switch (_state)
+        {
+            case PlayerState.IDLE:
+                Idle();
+                break;
+
+            case PlayerState.MOVE:
+                Move();
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    void Idle()
+    {
+        _animator.SetInteger("State", 0);
+
+        if (_move != Vector2.zero)
+            _state = PlayerState.MOVE;
+    }
+
+    void Move()
+    {
+        _moveDir = new Vector3(_move.x, 0, _move.y).normalized;
+        _moveDir = _mainCamera.transform.TransformDirection(_moveDir);
 
         if (_characterController.collisionFlags == CollisionFlags.Below)
         {
             _yVelocity = 0;
             _currentJumpCount = 0;
+            _animator.SetInteger("State", 1);
         }
 
         if (_jump && _currentJumpCount < _maxJumpCount)
         {
             _currentJumpCount++;
             _yVelocity = _jumpPower;
+            _animator.SetInteger("State", 2);
         }
 
         _yVelocity += _gravity * Time.deltaTime;
-        moveDir.y = _yVelocity;
-        _characterController.Move(moveDir * Time.deltaTime * _moveSpeed);
+        _moveDir.y = _yVelocity;
+        
+        _characterController.Move(_moveDir * Time.deltaTime * _moveSpeed);
+
+        if (_move == Vector2.zero)
+            _state = PlayerState.IDLE;
     }
 
     void RotateBody()
     {
-        _look = InputManager.Instance.look;
         _bodyAngle += _look.x * Time.deltaTime * sensitivity;
         this.transform.localEulerAngles = new Vector3(0, _bodyAngle, 0);
     }
 
     void RotateCamera()
     {
-        _look = InputManager.Instance.look;
         _cameraAngle += _look.y * Time.deltaTime * sensitivity;
         _cameraAngle = Mathf.Clamp(_cameraAngle, -30, 30);
         _mainCamera.transform.localEulerAngles = new Vector3(-_cameraAngle, 0, 0);
     }
 
-    void SetPlayerFSM()
-    {
-        switch (_state)
-        {
-            case PlayerState.IDLE:
-                _animator.SetInteger("State", 0);
-                break;
-
-            case PlayerState.MOVE:
-                _animator.SetInteger("State", 1);
-                break;
-
-            case PlayerState.JUMP:
-                _animator.SetInteger("State", 2);
-                break;
-        }
-    }
-
-    void SetPlayerState()
-    {
-        _move = InputManager.Instance.move;
-
-        if (_move == Vector2.zero)
-        {
-            _state = PlayerState.IDLE;
-        }
-        else
-        {
-            _state = PlayerState.MOVE;
-        }
-    }
-
     void SetBlendTree()
     {
-        _move = InputManager.Instance.move;
-
         _animator.SetFloat("xDir", _move.x);
         _animator.SetFloat("zDir", _move.y);
     }
