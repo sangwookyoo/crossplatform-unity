@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -109,11 +108,13 @@ public class PlayerController : MonoBehaviour
             case PlayerState.IDLE:
                 Idle();
                 Jump();
+                Gesture();
                 break;
 
             case PlayerState.MOVE:
                 Move();
                 Jump();
+                Gesture();
                 break;
 
             default:
@@ -170,6 +171,15 @@ public class PlayerController : MonoBehaviour
         }
 
         _yVelocity += _gravity * Time.deltaTime;
+    }
+
+    void Gesture()
+    {
+        // TODO: Input Animation Clips
+        if (Input.GetKeyDown(KeyCode.Backspace))
+        {
+            _animator.Play("Gesture");
+        }
     }
 
     void RotateBody()
