@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.OnScreen;
 using UnityEngine.InputSystem.Layouts;
 
-public class MoveControl : OnScreenControl, IPointerDownHandler, IPointerUpHandler, IDragHandler
+public class StickControl : OnScreenControl, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
     public RectTransform background;
     public RectTransform stick;
