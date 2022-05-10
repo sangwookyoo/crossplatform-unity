@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1864490332, guid: 66bd02e2746234647a685703c57241ec, type: 3}
-  m_Name: ObfuscatorOptionsImport
+  m_Name: ObfuscatorOptions
   m_EditorClassIdentifier: 
   classes: 1
   methods: 1
@@ -18,8 +18,8 @@ MonoBehaviour:
   fields: 1
   properties: 1
   events: 1
-  skipRenameOfAllPublicMonobehaviourMethods: 1
-  skipRenameOfAllPublicMonobehaviourFields: 1
+  skipRenameOfAllPublicMonobehaviourMethods: 0
+  skipRenameOfAllPublicMonobehaviourFields: 0
   searchForUnityReflectionMethods: 1
   obfuscateLiterals: 1
   stripLiteralEscapeCharacters: 1
@@ -28,9 +28,9 @@ MonoBehaviour:
   addFakeCode: 1
   minFalseMethodsPerClass: 10
   maxFalseMethodsPerClass: 150
-  unicodeStartInDecimal: 65
+  unicodeStartInDecimal: 333
   numberOfCharacters: 2
-  createNameTranslationFile: 0
+  createNameTranslationFile: 1
   nameTranslationFile: nameTranslation.txt
   usePreviousObfuscation: 0
   previousNameTranslationFile: nameTranslation.txt
@@ -218,7 +218,7 @@ MonoBehaviour:
   treatScriptableObjectsAsSerializable: 1
   deriveNamesFromCryptoHash: 1
   sha1seed: Nou90FKlsuoKNLNJrQZjIDXx
-  numberOfDifferentCharactersAsPowerOfTwo: 4
+  numberOfDifferentCharactersAsPowerOfTwo: 1
   numberOfHashBitsToUse: 6
   allowCopyingOfAllAttributesInFakeCode: 0
   allowCopyingOfBeebyteAttributesInFakeCode: 1
@@ -238,7 +238,7 @@ MonoBehaviour:
   skipEnums: 1
   maxInstructionsForCloning: 2000
   preserveNamespaces: 0
-  obfuscateMonoBehaviourClassNames: 0
+  obfuscateMonoBehaviourClassNames: 1
   replaceLiterals:
   - OnHover
   - OnSelect
