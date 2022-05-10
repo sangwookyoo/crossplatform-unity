@@ -30,6 +30,12 @@ public class SoundManager : MonoBehaviour
 
     void Awake()
     {
+        Singleton();
+        InitSound();
+    }
+
+    void Singleton()
+    {
         if (_instance == null)
         {
             _instance = this;
@@ -40,8 +46,6 @@ public class SoundManager : MonoBehaviour
         {
             Destroy(this);
         }
-        
-        InitSound();
     }
 
     public void InitSound()

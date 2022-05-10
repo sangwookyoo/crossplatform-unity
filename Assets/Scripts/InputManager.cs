@@ -29,29 +29,20 @@ public class InputManager : MonoBehaviour
 
     void Awake()
     {
-        if (_instance == null)
-        {
-            _instance = this;
-            DontDestroyOnLoad(this.gameObject);
-        }
-
-        else
-        {
-            Destroy(this);
-        }
+        Singleton();
 
         if (_playerInputActions == null)
-        {
-            _playerInputActions = new PlayerInpuActions();
-        }
+        _playerInputActions = new PlayerInpuActions();
     }
 
     void OnEnable()
     {
         _playerInputActions.Enable();
+        _playerInputActions.Player.Move.started += OnMove;
         _playerInputActions.Player.Move.performed += OnMove;
         _playerInputActions.Player.Move.canceled += OnMove;
 
+        _playerInputActions.Player.Look.started += OnLook;
         _playerInputActions.Player.Look.performed += OnLook;
         _playerInputActions.Player.Look.canceled += OnLook;
     }
@@ -64,6 +55,20 @@ public class InputManager : MonoBehaviour
     void Update()
     {
         jump = _playerInputActions.Player.Jump.triggered;
+    }
+    
+    void Singleton()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+
+        else
+        {
+            Destroy(this);
+        }
     }
 
     void OnMove(InputAction.CallbackContext context)

@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     [HideInInspector] public float sensitivity;
 
-    // PlayerManager Property
+    // GameManager Property
     private float _moveSpeed;
     private float _gravity;
     private float _jumpPower;
@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     // PlayerController Property
     private float _bodyAngle;
     private float _cameraAngle;
+    private Vector2 _lookDir;
     private Vector3 _moveDir;
     private float _yVelocity = 0;
     private int _currentJumpCount = 0;
@@ -53,43 +54,48 @@ public class PlayerController : MonoBehaviour
 
     void LateUpdate()
     {
-        RotateBody();
-        RotateCamera();
+        Look();
         SetBlendTree();
         SetRenderCamera();
     }
 
     void SetPlayerSettings()
     {
-        // Player Settings
-        sensitivity = PlayerManager.Instance.sensitivity;
+        if (this.gameObject.GetComponent<CharacterController>() == null)
+        this.gameObject.AddComponent<CharacterController>();
 
-        _moveSpeed = PlayerManager.Instance.moveSpeed;
-        _gravity = PlayerManager.Instance.gravity;
-        _jumpPower = PlayerManager.Instance.jumpPower;
-        _maxJumpCount = PlayerManager.Instance.maxJumpCount;
+        if (this.gameObject.GetComponent<Animator>() == null)
+        this.gameObject.AddComponent<Animator>();
+
+        // Player Settings
+        sensitivity = GameManager.Instance.sensitivity;
+
+        _moveSpeed = GameManager.Instance.moveSpeed;
+        _gravity = GameManager.Instance.gravity;
+        _jumpPower = GameManager.Instance.jumpPower;
+        _maxJumpCount = GameManager.Instance.maxJumpCount;
 
         // Camera Settings
-        _mainCamera = PlayerManager.Instance.mainCamera;
-        _renderCamera = PlayerManager.Instance.renderCamera;
-        _renderCameraX = PlayerManager.Instance.renderCameraX;
-        _renderCameraY = PlayerManager.Instance.renderCameraY;
-        _renderCameraZ = PlayerManager.Instance.renderCameraZ;
+        _mainCamera = GameManager.Instance.mainCamera;
+        _renderCamera = GameManager.Instance.renderCamera;
+        _renderCameraX = GameManager.Instance.renderCameraX;
+        _renderCameraY = GameManager.Instance.renderCameraY;
+        _renderCameraZ = GameManager.Instance.renderCameraZ;
 
         // CharacterController Settings
-        _characterController = this.gameObject.AddComponent<CharacterController>();
-        _characterController.slopeLimit = PlayerManager.Instance.slopeLimit;
-        _characterController.stepOffset = PlayerManager.Instance.stepOffset;
-        _characterController.skinWidth = PlayerManager.Instance.skinWidth;
-        _characterController.minMoveDistance = PlayerManager.Instance.minMoveDistance;
-        _characterController.radius = PlayerManager.Instance.radius;
-        _characterController.height = PlayerManager.Instance.height;
-        _characterController.center = PlayerManager.Instance.center;
+        _characterController = this.gameObject.GetComponent<CharacterController>();
+        _characterController.slopeLimit = GameManager.Instance.slopeLimit;
+        _characterController.stepOffset = GameManager.Instance.stepOffset;
+        _characterController.skinWidth = GameManager.Instance.skinWidth;
+        _characterController.minMoveDistance = GameManager.Instance.minMoveDistance;
+        _characterController.radius = GameManager.Instance.radius;
+        _characterController.height = GameManager.Instance.height;
+        _characterController.center = GameManager.Instance.center;
 
         // Animator Settings
-        _animator = this.gameObject.AddComponent<Animator>();
-        _animator.runtimeAnimatorController = PlayerManager.Instance.runtimeAnimatorController;
-        _animator.avatar = PlayerManager.Instance.avatar;
+        _animator = this.gameObject.GetComponent<Animator>();
+        _animator.runtimeAnimatorController = GameManager.Instance.runtimeAnimatorController;
+        _animator.avatar = GameManager.Instance.avatar;
     }
 
     void SetPlayerInput()
@@ -182,15 +188,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void RotateBody()
+    void Look()
     {
-        _bodyAngle += _look.x * Time.deltaTime * sensitivity;
+        _lookDir = _look * Time.deltaTime * sensitivity;
+        _bodyAngle += _lookDir.x;
         this.transform.localEulerAngles = new Vector3(0, _bodyAngle, 0);
-    }
 
-    void RotateCamera()
-    {
-        _cameraAngle += _look.y * Time.deltaTime * sensitivity;
+        _cameraAngle += _lookDir.y;
         _cameraAngle = Mathf.Clamp(_cameraAngle, -30, 30);
         _mainCamera.transform.localEulerAngles = new Vector3(-_cameraAngle, 0, 0);
     }

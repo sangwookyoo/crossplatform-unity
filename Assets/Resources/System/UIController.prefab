@@ -648,7 +648,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   background: {fileID: 8020284100676537009}
   stick: {fileID: 2488696522208914010}
-  m_ControlPath: <Gamepad>/rightStick
+  m_ControlPath: <Touchscreen>/delta
 --- !u!1 &8532454229342497229
 GameObject:
   m_ObjectHideFlags: 0

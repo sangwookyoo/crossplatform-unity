@@ -176,10 +176,10 @@ public class @PlayerInpuActions : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""f49e1ecf-c400-4719-9b7f-cf0f77a45563"",
-                    ""path"": ""<Gamepad>/rightStick"",
+                    ""path"": ""<Touchscreen>/delta"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": ""Touch"",
                     ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false

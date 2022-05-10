@@ -54,6 +54,22 @@ public class UIManager : MonoBehaviour
 
     void Awake()
     {
+        Singleton();
+        SetUIController();
+    }
+
+    void Start()
+    {
+        SetSafeArea();
+    }
+
+    void Update()
+    {
+
+    }
+
+    void Singleton()
+    {
         if (_instance == null)
         {
             _instance = this;
@@ -64,17 +80,6 @@ public class UIManager : MonoBehaviour
         {
             Destroy(this);
         }
-    }
-
-    void Start()
-    {
-        SetUIController();
-        SetSafeArea();
-    }
-
-    void Update()
-    {
-
     }
 
     void SetUIController()

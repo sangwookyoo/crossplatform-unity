@@ -21,12 +21,17 @@ public class RPCManager : MonoBehaviour
 
     void Awake()
     {
+        Singleton();
+    }
+
+    void Singleton()
+    {
         if (_instance == null)
         {
             _instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
-        
+
         else
         {
             Destroy(this);

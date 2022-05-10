@@ -43,6 +43,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01512560bf6af4d5c8ffa08c7a099057, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerDataScriptableObject: {fileID: 11400000, guid: afc54e17ede5049e295571bf8080179c, type: 2}
+  sensitivity: 1
+  moveSpeed: 8
+  gravity: -9.8
+  jumpPower: 2
+  maxJumpCount: 1
+  slopeLimit: 45
+  stepOffset: 0.3
+  skinWidth: 0.08
+  minMoveDistance: 0.001
+  radius: 0.23
+  height: 1.8
+  center: {x: 0, y: 0.9, z: 0}
+  mainCameraObject: {fileID: 4319469908567844109, guid: ae8d5a2aff688b74099b55dff6fbbc43, type: 3}
+  renderCameraObject: {fileID: 7732359021659965392, guid: 033d0a012393cf449a5c36c3c05db38b, type: 3}
+  firstPersonCameraOffset: {x: 0, y: 1.8, z: 0.3}
+  thirdPersonCameraOffset: {x: 0, y: 2, z: -3.5}
+  renderCameraX: 1
+  renderCameraY: 0
+  renderCameraZ: 1
+  runtimeAnimatorController: {fileID: 9100000, guid: 09e1536f567a94a6489ed2213125911a, type: 2}
+  avatar: {fileID: 9000000, guid: 5917c0e93d180a842b61d1ebc62a195c, type: 3}
+  eventSystem: {fileID: 7531537078465323126, guid: 965df482e6bc6ed40b25b255de78b5b3, type: 3}
+  player: {fileID: 0}
+  mainCamera: {fileID: 0}
+  renderCamera: {fileID: 0}
   inputManager: {fileID: 7706008202501496553, guid: 8b89ce44ca0e3994fb508737fc40afe3, type: 3}
-  playerManager: {fileID: 3945017922557513839, guid: 1b50b0cc9bf3a416096354163aaa6729, type: 3}
   isFirst: 0
