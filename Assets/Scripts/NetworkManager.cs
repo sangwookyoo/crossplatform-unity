@@ -14,6 +14,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public string roomName;
     public List<DefaultRoom> defaultRooms;
+    [HideInInspector] public GameObject LocalPlayer;
 
     private readonly string _version = "1.0f";
     private string _userID = "SW";
@@ -86,8 +87,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             Debug.Log($"{player.Value.NickName},{player.Value.ActorNumber}");
         }
 
-        // PhotonNetwork.Instantiate("Player/Player", Vector3.zero, Quaternion.identity);
+        LocalPlayer =  PhotonNetwork.Instantiate("Player/Player", Vector3.zero, Quaternion.identity);
+        LocalPlayer.gameObject.name = PhotonNetwork.NickName;
+        if (LocalPlayer.GetComponent<PlayerController>() == null)
+        LocalPlayer.AddComponent<PlayerController>();
+        GameManager.Instance.player = LocalPlayer;
     }
+
     public void InitiliazeRoom(int defaultRoomIndex)
     {
         DefaultRoom roomSettings = defaultRooms[defaultRoomIndex];

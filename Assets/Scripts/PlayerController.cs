@@ -2,8 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviourPun
 {
     [HideInInspector] public float sensitivity;
 
@@ -12,9 +14,12 @@ public class PlayerController : MonoBehaviour
     private float _gravity;
     private float _jumpPower;
     private int _maxJumpCount;
+    private bool _renderCameraX;
+    private bool _renderCameraY;
+    private bool _renderCameraZ;
+    private Vector3 _thirdPersonCameraOffset;
     private Camera _mainCamera;
     private Camera _renderCamera;
-    private bool _renderCameraX, _renderCameraY, _renderCameraZ;
 
     // PlayerController Property
     private float _bodyAngle;
@@ -43,17 +48,21 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        if (!photonView.IsMine) return;
         SetPlayerSettings();
+        SetMainCamera();
     }
 
     void Update()
     {
+        if (!photonView.IsMine) return;
         SetPlayerInput();
         SetPlayerState();
     }
 
     void LateUpdate()
     {
+        if (!photonView.IsMine) return;
         Look();
         SetBlendTree();
         SetRenderCamera();
@@ -76,6 +85,7 @@ public class PlayerController : MonoBehaviour
         _maxJumpCount = GameManager.Instance.maxJumpCount;
 
         // Camera Settings
+        _thirdPersonCameraOffset = GameManager.Instance.thirdPersonCameraOffset;
         _mainCamera = GameManager.Instance.mainCamera;
         _renderCamera = GameManager.Instance.renderCamera;
         _renderCameraX = GameManager.Instance.renderCameraX;
@@ -203,6 +213,12 @@ public class PlayerController : MonoBehaviour
     {
         _animator.SetFloat("xDir", _move.x);
         _animator.SetFloat("zDir", _move.y);
+    }
+
+    void SetMainCamera()
+    {
+        _mainCamera.transform.SetParent(this.gameObject.transform);
+        _mainCamera.transform.localPosition = _thirdPersonCameraOffset;
     }
 
     void SetRenderCamera()

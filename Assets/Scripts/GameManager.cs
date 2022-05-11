@@ -7,9 +7,6 @@ using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
-    [Header("Player Object")]
-    public PlayerDataScriptableObject playerDataScriptableObject;
-
     [Header("Player Settings")]
     public float sensitivity = 1f;
     public float moveSpeed = 8f;
@@ -50,7 +47,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public Camera mainCamera;
     [HideInInspector] public Camera renderCamera;
 
-    // Singleton
+
     private static GameManager _instance;
 
     public static GameManager Instance
@@ -68,8 +65,10 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         Singleton();
-        LoadPlayer();
         Instantiate(inputManager);
+        Instantiate(eventSystem);
+        mainCamera = Instantiate(mainCameraObject) as Camera;
+        renderCamera = Instantiate(renderCameraObject) as Camera;
     }
 
     void Start()
@@ -96,25 +95,6 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this);
         }
-    }
-
-    void LoadPlayer()
-    {
-        // TODO: playerDataScriptableObject.playerObject[ ** THIS ** ]
-        player = Instantiate(playerDataScriptableObject.playerObject[0]) as GameObject;
-        player.gameObject.name = "Player";
-        player.transform.localPosition = Vector3.zero;
-        player.transform.localRotation = Quaternion.identity;
-        if (this.gameObject.GetComponent<PlayerController>() == null)
-        player.AddComponent<PlayerController>();
-
-        mainCamera = Instantiate(mainCameraObject) as Camera;
-        mainCamera.transform.SetParent(player.transform);
-        mainCamera.transform.localPosition = thirdPersonCameraOffset;
-
-        renderCamera = Instantiate(renderCameraObject) as Camera;
-
-        Instantiate(eventSystem);
     }
 
     void DebugButton()
@@ -159,13 +139,13 @@ public class GameManager : MonoBehaviour
         if ((Input.GetKeyDown(KeyCode.LeftBracket)) && (0f < sensitivity))
         {
             sensitivity -= 1f;
-            StartCoroutine(UIManager.Instance.SystemCoroutine("마우스 감도: " + (int)sensitivity, 3f));
+            StartCoroutine(UIManager.Instance.SystemCoroutine("Mouse sensitivity: " + (int)sensitivity, 3f));
         }
 
         if ((Input.GetKeyDown(KeyCode.RightBracket)) && (sensitivity < 1000f))
         {
             sensitivity += 1f;
-            StartCoroutine(UIManager.Instance.SystemCoroutine("마우스 감도: " + (int)sensitivity, 3f));
+            StartCoroutine(UIManager.Instance.SystemCoroutine("Mouse sensitivity: " + (int)sensitivity, 3f));
         }
     }
 }

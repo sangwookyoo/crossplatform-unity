@@ -10,9 +10,6 @@ public class InputManager : MonoBehaviour
     [HideInInspector] public bool jump;
 
     private PlayerInpuActions _playerInputActions;
-    private InputAction _moveAction;
-
-    // Singleton
     private static InputManager _instance;
 
     public static InputManager Instance
