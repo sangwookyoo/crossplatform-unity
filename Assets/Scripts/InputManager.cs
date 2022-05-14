@@ -26,7 +26,16 @@ public class InputManager : MonoBehaviour
 
     void Awake()
     {
-        Singleton();
+        if (_instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+
+        else
+        {
+            Destroy(this);
+        }
 
         if (_playerInputActions == null)
         _playerInputActions = new PlayerInpuActions();
@@ -52,20 +61,6 @@ public class InputManager : MonoBehaviour
     void Update()
     {
         jump = _playerInputActions.Player.Jump.triggered;
-    }
-    
-    void Singleton()
-    {
-        if (_instance == null)
-        {
-            _instance = this;
-            DontDestroyOnLoad(this.gameObject);
-        }
-
-        else
-        {
-            Destroy(this);
-        }
     }
 
     void OnMove(InputAction.CallbackContext context)

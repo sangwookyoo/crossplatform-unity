@@ -41,6 +41,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             _instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
+        
         else
         {
             Destroy(this);

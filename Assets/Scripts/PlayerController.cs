@@ -46,6 +46,12 @@ public class PlayerController : MonoBehaviourPun
         SIZE
     }
 
+    void Awake()
+    {
+        _characterController = GetComponent<CharacterController>();
+        _animator = GetComponent<Animator>();
+    }
+
     void Start()
     {
         if (!photonView.IsMine) return;
@@ -70,12 +76,6 @@ public class PlayerController : MonoBehaviourPun
 
     void SetPlayerSettings()
     {
-        if (this.gameObject.GetComponent<CharacterController>() == null)
-        this.gameObject.AddComponent<CharacterController>();
-
-        if (this.gameObject.GetComponent<Animator>() == null)
-        this.gameObject.AddComponent<Animator>();
-
         // Player Settings
         sensitivity = GameManager.Instance.sensitivity;
 
@@ -93,7 +93,6 @@ public class PlayerController : MonoBehaviourPun
         _renderCameraZ = GameManager.Instance.renderCameraZ;
 
         // CharacterController Settings
-        _characterController = this.gameObject.GetComponent<CharacterController>();
         _characterController.slopeLimit = GameManager.Instance.slopeLimit;
         _characterController.stepOffset = GameManager.Instance.stepOffset;
         _characterController.skinWidth = GameManager.Instance.skinWidth;
@@ -103,7 +102,6 @@ public class PlayerController : MonoBehaviourPun
         _characterController.center = GameManager.Instance.center;
 
         // Animator Settings
-        _animator = this.gameObject.GetComponent<Animator>();
         _animator.runtimeAnimatorController = GameManager.Instance.runtimeAnimatorController;
         _animator.avatar = GameManager.Instance.avatar;
     }

@@ -54,22 +54,6 @@ public class UIManager : MonoBehaviour
 
     void Awake()
     {
-        Singleton();
-        SetUIController();
-    }
-
-    void Start()
-    {
-        SetSafeArea();
-    }
-
-    void Update()
-    {
-
-    }
-
-    void Singleton()
-    {
         if (_instance == null)
         {
             _instance = this;
@@ -80,6 +64,13 @@ public class UIManager : MonoBehaviour
         {
             Destroy(this);
         }
+        
+        SetUIController();
+    }
+
+    void Start()
+    {
+        SetSafeArea();
     }
 
     void SetUIController()
@@ -139,28 +130,26 @@ public class UIManager : MonoBehaviour
 
     public IEnumerator FadeInCoroutine(GameObject targetObj, float duration)
     {
-        if (targetObj == null) yield return this;
-        if (targetObj.activeSelf == true) yield return this;
-        targetObj.SetActive(true);
-        targetObj.GetComponent<CanvasGroup>().alpha = 0;
+        Renderer renderer = targetObj.GetComponent<Renderer>();
 
-        while (targetObj.GetComponent<CanvasGroup>().alpha < 1.0f)
+        for (float f = duration; f <= 1; f += 0.1f)
         {
-            targetObj.GetComponent<CanvasGroup>().alpha += 1.0f / duration * Time.deltaTime;
+            Color color = renderer.material.color;
+            color.a = f;
+            renderer.material.color = color;
             yield return null;
         }
     }
 
     public IEnumerator FadeOutCoroutine(GameObject targetObj, float duration)
     {
-        if (targetObj == null) yield return this;
-        if (targetObj.activeSelf == false) yield return this;
-        targetObj.SetActive(true);
-        targetObj.GetComponent<CanvasGroup>().alpha = 0;
+        Renderer renderer = targetObj.GetComponent<Renderer>();
 
-        while (targetObj.GetComponent<CanvasGroup>().alpha > 0.0f)
+        for (float f = duration; f >= 0; f -= 0.1f)
         {
-            targetObj.GetComponent<CanvasGroup>().alpha -= 1.0f / duration * Time.deltaTime;
+            Color color = renderer.material.color;
+            color.a = f;
+            renderer.material.color = color;
             yield return null;
         }
     }

@@ -39,14 +39,9 @@ public class GameManager : MonoBehaviour
     public RuntimeAnimatorController runtimeAnimatorController;
     public Avatar avatar;
 
-    [Header("Module")]
-    public GameObject inputManager;
-    public EventSystem eventSystem;
-
     [HideInInspector] public GameObject player;
     [HideInInspector] public Camera mainCamera;
     [HideInInspector] public Camera renderCamera;
-
 
     private static GameManager _instance;
 
@@ -64,9 +59,17 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        Singleton();
-        Instantiate(inputManager);
-        Instantiate(eventSystem);
+        if (_instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+
+        else
+        {
+            Destroy(this);
+        }
+
         mainCamera = Instantiate(mainCameraObject) as Camera;
         renderCamera = Instantiate(renderCameraObject) as Camera;
     }
@@ -83,27 +86,13 @@ public class GameManager : MonoBehaviour
         ChangeSensitivity();
     }
 
-    void Singleton()
-    {
-        if (_instance == null)
-        {
-            _instance = this;
-            DontDestroyOnLoad(this.gameObject);
-        }
-
-        else
-        {
-            Destroy(this);
-        }
-    }
-
     void DebugButton()
     {
         int num = 1;
 
         UIManager.Instance.button.onClick.AddListener(() =>
         {
-            GameObject.Instantiate(UIManager.Instance.userInfoObject, UIManager.Instance.userInfoContent);
+            Instantiate(UIManager.Instance.userInfoObject, UIManager.Instance.userInfoContent);
         });
 
         UIManager.Instance.button01.onClick.AddListener(() =>
