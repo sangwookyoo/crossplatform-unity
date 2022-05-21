@@ -35,6 +35,7 @@ public class UIManager : MonoBehaviour
     public Button button;
     public Button button01;
     public Button button02;
+    public Text localText;
 
 
     // Singleton
@@ -66,11 +67,12 @@ public class UIManager : MonoBehaviour
         }
         
         SetUIController();
+        SetSafeArea();
     }
 
     void Start()
     {
-        SetSafeArea();
+        localText.text = Localization.Instance.GetMessage(0);
     }
 
     void SetUIController()
