@@ -54,21 +54,18 @@ public class PlayerController : MonoBehaviourPun
 
     void Start()
     {
-        if (!photonView.IsMine) return;
         SetPlayerSettings();
         SetMainCamera();
     }
 
     void Update()
     {
-        if (!photonView.IsMine) return;
         SetPlayerInput();
         SetPlayerState();
     }
 
     void LateUpdate()
     {
-        if (!photonView.IsMine) return;
         Look();
         SetBlendTree();
         SetRenderCamera();
@@ -76,42 +73,46 @@ public class PlayerController : MonoBehaviourPun
 
     void SetPlayerSettings()
     {
-        // Player Settings
-        sensitivity = GameManager.Instance.sensitivity;
+        GameManager gameMananger = GameManager.Instance;
 
-        _moveSpeed = GameManager.Instance.moveSpeed;
-        _gravity = GameManager.Instance.gravity;
-        _jumpPower = GameManager.Instance.jumpPower;
-        _maxJumpCount = GameManager.Instance.maxJumpCount;
+        // Player Settings
+        sensitivity = gameMananger.sensitivity;
+
+        _moveSpeed = gameMananger.moveSpeed;
+        _gravity = gameMananger.gravity;
+        _jumpPower = gameMananger.jumpPower;
+        _maxJumpCount = gameMananger.maxJumpCount;
 
         // Camera Settings
-        _thirdPersonCameraOffset = GameManager.Instance.thirdPersonCameraOffset;
-        _mainCamera = GameManager.Instance.mainCamera;
-        _renderCamera = GameManager.Instance.renderCamera;
-        _renderCameraX = GameManager.Instance.renderCameraX;
-        _renderCameraY = GameManager.Instance.renderCameraY;
-        _renderCameraZ = GameManager.Instance.renderCameraZ;
+        _thirdPersonCameraOffset = gameMananger.thirdPersonCameraOffset;
+        _mainCamera = gameMananger.mainCamera;
+        _renderCamera = gameMananger.renderCamera;
+        _renderCameraX = gameMananger.renderCameraX;
+        _renderCameraY = gameMananger.renderCameraY;
+        _renderCameraZ = gameMananger.renderCameraZ;
 
         // CharacterController Settings
-        _characterController.slopeLimit = GameManager.Instance.slopeLimit;
-        _characterController.stepOffset = GameManager.Instance.stepOffset;
-        _characterController.skinWidth = GameManager.Instance.skinWidth;
-        _characterController.minMoveDistance = GameManager.Instance.minMoveDistance;
-        _characterController.radius = GameManager.Instance.radius;
-        _characterController.height = GameManager.Instance.height;
-        _characterController.center = GameManager.Instance.center;
+        _characterController.slopeLimit = gameMananger.slopeLimit;
+        _characterController.stepOffset = gameMananger.stepOffset;
+        _characterController.skinWidth = gameMananger.skinWidth;
+        _characterController.minMoveDistance = gameMananger.minMoveDistance;
+        _characterController.radius = gameMananger.radius;
+        _characterController.height = gameMananger.height;
+        _characterController.center = gameMananger.center;
 
         // Animator Settings
-        _animator.runtimeAnimatorController = GameManager.Instance.runtimeAnimatorController;
-        _animator.avatar = GameManager.Instance.avatar;
+        _animator.runtimeAnimatorController = gameMananger.runtimeAnimatorController;
+        _animator.avatar = gameMananger.avatar;
     }
 
     void SetPlayerInput()
     {
+        InputManager inputMananger = InputManager.Instance;
+
         // InputManager CallBack
-        _move = InputManager.Instance.move;
-        _jump = InputManager.Instance.jump;
-        _look = InputManager.Instance.look;
+        _move = inputMananger.move;
+        _jump = inputMananger.jump;
+        _look = inputMananger.look;
     }
 
     void SetPlayerState()

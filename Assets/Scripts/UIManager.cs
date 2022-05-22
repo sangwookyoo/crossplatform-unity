@@ -1,8 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System;
 
 public class UIManager : MonoBehaviour
 {
@@ -77,7 +75,6 @@ public class UIManager : MonoBehaviour
 
     void SetUIController()
     {
-        Debug.Log("Play in " + Application.platform);
         if (uiController == null) return;
 
         #if UNITY_ANDROID || UNITY_IOS

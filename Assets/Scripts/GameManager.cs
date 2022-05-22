@@ -1,11 +1,8 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
+using Photon.Pun;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviourPunCallbacks
 {
     [Header("Player Settings")]
     public float sensitivity = 1f;
@@ -72,6 +69,11 @@ public class GameManager : MonoBehaviour
 
         mainCamera = Instantiate(mainCameraObject) as Camera;
         renderCamera = Instantiate(renderCameraObject) as Camera;
+
+        player = Instantiate(Resources.Load("Player/Player"), Vector3.zero, Quaternion.identity) as GameObject;
+        // player.gameObject.name = PhotonNetwork.NickName;
+        // if (!photonView.IsMine) return;
+        player.AddComponent<PlayerController>();
     }
 
     void Start()

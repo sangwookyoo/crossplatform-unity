@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
@@ -14,10 +13,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public string roomName;
     public List<DefaultRoom> defaultRooms;
-    [HideInInspector] public GameObject LocalPlayer;
 
     private readonly string _version = "1.0f";
-    private string _userID = "SW";
 
     /* Singleton */
     private static NetworkManager _instance;
@@ -49,11 +46,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.GameVersion = _version;
-        PhotonNetwork.NickName = _userID;
-        ConnectToServer();
     }
 
-    void ConnectToServer()
+    public void ConnectToServer()
     {
         PhotonNetwork.ConnectUsingSettings(); // 서버연결
     }
@@ -85,14 +80,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         foreach (var player in PhotonNetwork.CurrentRoom.Players)
         {
-            Debug.Log($"{player.Value.NickName},{player.Value.ActorNumber}");
+            Debug.Log($"PlayerName: {player.Value.NickName},{player.Value.ActorNumber}");
         }
-
-        LocalPlayer =  PhotonNetwork.Instantiate("Player/Player", Vector3.zero, Quaternion.identity);
-        LocalPlayer.gameObject.name = PhotonNetwork.NickName;
-        if (LocalPlayer.GetComponent<PlayerController>() == null)
-        LocalPlayer.AddComponent<PlayerController>();
-        GameManager.Instance.player = LocalPlayer;
     }
 
     public void InitiliazeRoom(int defaultRoomIndex)
