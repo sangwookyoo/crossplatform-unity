@@ -199,13 +199,24 @@ public class PlayerController : MonoBehaviourPun
 
     void Look()
     {
-        _lookDir = _look * Time.deltaTime * sensitivity;
-        _bodyAngle += _lookDir.x;
-        this.transform.localEulerAngles = new Vector3(0, _bodyAngle, 0);
+        #if UNITY_ANDROID || UNITY_IOS
+            _lookDir = _look * Time.deltaTime * sensitivity;
+            _bodyAngle += _lookDir.x;
+            this.transform.localEulerAngles = new Vector3(0, _bodyAngle, 0);
 
-        _cameraAngle += _lookDir.y;
-        _cameraAngle = Mathf.Clamp(_cameraAngle, -30, 30);
-        _mainCamera.transform.localEulerAngles = new Vector3(-_cameraAngle, 0, 0);
+            _cameraAngle += _lookDir.y;
+            _cameraAngle = Mathf.Clamp(_cameraAngle, -30, 30);
+            _mainCamera.transform.localEulerAngles = new Vector3(-_cameraAngle, 0, 0);
+        #endif
+
+        #if UNITY_EDITOR || UNITY_STANDALONE
+            _bodyAngle += Input.GetAxis("Mouse X") * Time.deltaTime * sensitivity * 150;
+            this.transform.localEulerAngles = new Vector3(0, _bodyAngle, 0);
+
+            _cameraAngle += Input.GetAxis("Mouse Y") * Time.deltaTime * sensitivity * 100;
+            _cameraAngle = Mathf.Clamp(_cameraAngle, -30, 30);
+            _mainCamera.transform.localEulerAngles = new Vector3(-_cameraAngle, 0, 0);
+        #endif
     }
 
     void SetBlendTree()
