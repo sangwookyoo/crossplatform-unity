@@ -4,12 +4,7 @@ using UnityEngine;
 
 public class SafeArea : MonoBehaviour
 {
-    void Start()
-    {
-        SetSafeArea();
-    }
-
-    void SetSafeArea()
+    void Awake()
     {
         Rect safeArea = Screen.safeArea;
         Vector2 newAnchorMin = safeArea.position;

@@ -7,10 +7,6 @@ public class UIManager : MonoBehaviour
     [Header("UI Controller")]
     public GameObject uiController;
 
-    [Header("Safe Area")]
-    [Tooltip("For Notch Design")]
-    public GameObject safeAreaObject;
-
     [Header("Panel View")]
     public Button changeViewButton;
 
@@ -65,7 +61,6 @@ public class UIManager : MonoBehaviour
         }
         
         SetUIController();
-        SetSafeArea();
     }
 
     void Start()
@@ -83,23 +78,8 @@ public class UIManager : MonoBehaviour
 
         // TODO: Check activeSelf
         #if UNITY_EDITOR || UNITY_STANDALONE
-            uiController.SetActive(true);
+            uiController.SetActive(false);
         #endif
-    }
-
-    void SetSafeArea()
-    {
-        Rect safeArea = Screen.safeArea;
-        Vector2 newAnchorMin = safeArea.position;
-        Vector2 newAnchorMax = safeArea.position + safeArea.size;
-        newAnchorMin.x /= Screen.width;
-        newAnchorMin.y /= Screen.height;
-        newAnchorMax.x /= Screen.width;
-        newAnchorMax.y /= Screen.height;
-
-        RectTransform rect= safeAreaObject.GetComponent<RectTransform>();
-        rect.anchorMin = newAnchorMin;
-        rect.anchorMax = newAnchorMax;
     }
 
     // StartCoroutine(ScreenCoroutine("Msg", 5f));
