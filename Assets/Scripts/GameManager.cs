@@ -69,15 +69,11 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         mainCamera = Instantiate(mainCameraObject) as Camera;
         renderCamera = Instantiate(renderCameraObject) as Camera;
-
-        player = Instantiate(Resources.Load("Player/Player"), Vector3.zero, Quaternion.identity) as GameObject;
-        // player.gameObject.name = PhotonNetwork.NickName;
-        // if (!photonView.IsMine) return;
-        player.AddComponent<PlayerController>();
     }
 
     void Start()
     {
+        CreateNetworkPlayer();
         DebugButton();
         ChangeView();
     }
@@ -86,6 +82,13 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         Clock();
         ChangeSensitivity();
+    }
+
+    void CreateNetworkPlayer()
+    {
+        player = PhotonNetwork.Instantiate("Player/Player", Vector3.zero, Quaternion.identity) as GameObject;
+        player.gameObject.name = PhotonNetwork.NickName;
+        player.AddComponent<PlayerController>();
     }
 
     void DebugButton()

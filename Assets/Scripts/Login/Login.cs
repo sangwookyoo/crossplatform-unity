@@ -1,22 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
-using Photon.Realtime;
 
-public class Login : MonoBehaviourPunCallbacks
+public class Login : MonoBehaviour
 {
-    public InputField idInputField;
-    public InputField pwInputField;
-    public Button siginBtn;
+    public InputField idInput;
+    public Button createServerBtn;
+    public Button joinedRoomBtn;
 
     void Start()
     {
-        siginBtn.onClick.AddListener(() =>
+        createServerBtn.onClick.AddListener(() =>
         {
-            PhotonNetwork.NickName = idInputField.text;
+            PhotonNetwork.NickName = idInput.text;
             NetworkManager.Instance.ConnectToServer();
+            joinedRoomBtn.interactable = true;
+        });
+
+        joinedRoomBtn.onClick.AddListener(() =>
+        {
+            if (PhotonNetwork.IsConnectedAndReady) PhotonNetwork.LoadLevel("Main");
         });
     }
 }

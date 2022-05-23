@@ -1,20 +1,16 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
-    [System.Serializable]
-    public class DefaultRoom
-    {
-        public int maxPlayer;
-    }
-
+    public GameObject networkPlayer;
     public string roomName;
-    public List<DefaultRoom> defaultRooms;
+    public byte maxPlayer;
 
-    private readonly string _version = "1.0f";
+    private readonly string _gameVersion = "1.0";
 
     /* Singleton */
     private static NetworkManager _instance;
@@ -44,13 +40,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             Destroy(this);
         }
 
+        PhotonNetwork.GameVersion = _gameVersion;
         PhotonNetwork.AutomaticallySyncScene = true;
-        PhotonNetwork.GameVersion = _version;
     }
 
     public void ConnectToServer()
     {
-        PhotonNetwork.ConnectUsingSettings(); // 서버연결
+        PhotonNetwork.ConnectUsingSettings();
     }
 
     public override void OnConnectedToMaster()
@@ -63,13 +59,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnJoinedLobby()
     {
         Debug.Log($"PhotonNetwork.InLobby: {PhotonNetwork.InLobby}");
-        InitiliazeRoom(0);
-    }
-
-    public override void OnJoinRoomFailed(short returnCode, string message)
-    {
-        Debug.Log($"OnJoinRoomFailed: {returnCode}:{message}");
-        InitiliazeRoom(0);
+        InitRoom();
     }
 
     public override void OnJoinedRoom()
@@ -84,18 +74,22 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         }
     }
 
-    public void InitiliazeRoom(int defaultRoomIndex)
+    public override void OnJoinRoomFailed(short returnCode, string message)
     {
-        DefaultRoom roomSettings = defaultRooms[defaultRoomIndex];
+        Debug.Log($"OnJoinRoomFailed: {returnCode}:{message}");
+        InitRoom();
+    }
 
+    public void InitRoom()
+    {
         RoomOptions roomOptions = new RoomOptions();
-        roomOptions.MaxPlayers = (byte)roomSettings.maxPlayer;
+        roomOptions.MaxPlayers = maxPlayer;
         roomOptions.IsOpen = true;
         roomOptions.IsVisible = true;
 
         PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, TypedLobby.Default);
     }
-
+    
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         Debug.Log($"New player Entered: {newPlayer.NickName},{newPlayer.ActorNumber}");
@@ -103,16 +97,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnLeftRoom()
     {
-        base.OnLeftRoom();
-        // PhotonNetwork.Destroy();
+        PhotonNetwork.Destroy(GameManager.Instance.player);
     }
-
-    // public override void OnJoinedRoom()
-    // {
-    // Vector3 pos = new Vector3(-40f, 0f, -15f);
-    // Vector3 randPos = pos + Random.insideUnitSphere * 5;
-    // randPos.y = 0;
-
-    // //spawnedPlayerPrefab = PhotonNetwork.Instantiate(ChoiceCharacter.netPlayer, randPos, Quaternion.identity);
-    // }
 }
