@@ -6,7 +6,6 @@ using Photon.Realtime;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
-    public GameObject networkPlayer;
     public string roomName;
     public byte maxPlayer;
 

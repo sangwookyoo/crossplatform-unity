@@ -98,17 +98,17 @@ public class SoundManager : MonoBehaviour
     }
 
     #region Sound Resources
-    public AudioClip bgm;
-    public AudioClip gun;
+    public AudioClip login;
+    public AudioClip effect;
 
-    public void BgmExample()
+    public void login_BGM()
     {
-        this.Play(bgm, Sound.Bgm);
+        this.Play(login, Sound.Bgm);
     }
 
     public void EffectExample()
     {
-        this.Play(gun);
+        this.Play(effect);
     }
     #endregion
 }

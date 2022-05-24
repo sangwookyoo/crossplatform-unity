@@ -1,8 +1,7 @@
 using System;
 using UnityEngine;
-using Photon.Pun;
 
-public class GameManager : MonoBehaviourPunCallbacks
+public class GameManager : MonoBehaviour
 {
     [Header("Player Settings")]
     public float sensitivity = 1f;
@@ -18,7 +17,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public float minMoveDistance = 0.001f;
     public float radius = 0.23f;
     public float height = 1.8f;
-    public Vector3 center = new Vector3(0f, 0.9f, 0f);
+    public Vector3 center;
 
     [Header("Camera Object")]
     public Camera mainCameraObject;
@@ -29,8 +28,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     public bool renderCameraX = true;
     public bool renderCameraY = false;
     public bool renderCameraZ = true;
-    public Vector3 firstPersonCameraOffset = new Vector3(0f, 1.8f, 0.3f);
-    public Vector3 thirdPersonCameraOffset = new Vector3(0f, 2f, -3.5f);
+    public Vector3 firstPersonCameraOffset;
+    public Vector3 thirdPersonCameraOffset;
 
     [Header("Animator Settings")]
     public RuntimeAnimatorController runtimeAnimatorController;
@@ -67,6 +66,9 @@ public class GameManager : MonoBehaviourPunCallbacks
             Destroy(this);
         }
 
+        center = new Vector3(0f, 0.9f, 0f);
+        firstPersonCameraOffset = new Vector3(0f, 1.8f, 0.3f);
+        thirdPersonCameraOffset = new Vector3(0f, 2f, -3.5f);
         mainCamera = Instantiate(mainCameraObject) as Camera;
         renderCamera = Instantiate(renderCameraObject) as Camera;
     }
@@ -86,9 +88,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     void CreateNetworkPlayer()
     {
-        player = PhotonNetwork.Instantiate("Player/Player", Vector3.zero, Quaternion.identity) as GameObject;
-        player.gameObject.name = PhotonNetwork.NickName;
-        player.AddComponent<PlayerController>();
+        player = GameObject.Instantiate(Resources.Load("Player/Player"), Vector3.zero, Quaternion.identity) as GameObject;
     }
 
     void DebugButton()

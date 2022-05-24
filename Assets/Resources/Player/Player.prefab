@@ -539,6 +539,7 @@ GameObject:
   - component: {fileID: 82367627805311678}
   - component: {fileID: 5153665847785665552}
   - component: {fileID: -5187594913113460584}
+  - component: {fileID: 8984056595209437020}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -632,7 +633,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1260597861999642}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
   m_Name: 
@@ -648,7 +649,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1260597861999642}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
   m_Name: 
@@ -666,13 +667,13 @@ MonoBehaviour:
     SynchronizeType: 1
     Name: zDir
   - Type: 9
-    SynchronizeType: 1
+    SynchronizeType: 0
     Name: doGesture
   - Type: 9
-    SynchronizeType: 1
+    SynchronizeType: 0
     Name: doJump
   - Type: 4
-    SynchronizeType: 1
+    SynchronizeType: 0
     Name: isJump
   m_SynchronizeLayers:
   - SynchronizeType: 1
@@ -684,11 +685,24 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1260597861999642}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 85706d6b4cea4244b97bcb9f0b3c3009, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8984056595209437020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1260597861999642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8727b0fe9168046e8947395d947ea16b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sensitivity: 0
 --- !u!1 &1261804499409134
 GameObject:
   m_ObjectHideFlags: 0

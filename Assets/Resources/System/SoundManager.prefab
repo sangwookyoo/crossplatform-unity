@@ -43,5 +43,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3f1ae2a026e449abaae87387cde8f04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bgm: {fileID: 0}
-  gun: {fileID: 0}
+  login: {fileID: 8300000, guid: c33454f3e253748ddb1e04dd35e369dd, type: 3}
+  main: {fileID: 0}

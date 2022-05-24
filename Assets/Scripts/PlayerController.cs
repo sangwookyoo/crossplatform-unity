@@ -1,10 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
 
-public class PlayerController : MonoBehaviourPun
+public class PlayerController : MonoBehaviour
 {
     [HideInInspector] public float sensitivity;
 
