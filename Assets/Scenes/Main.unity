@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657815, g: 0.49641192, b: 0.57481617, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -201,6 +201,10 @@ PrefabInstance:
     - target: {fileID: 7658744871855539690, guid: 08d64bbf7dfc4449685b170a461c8d03, type: 3}
       propertyPath: m_Name
       value: UIManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8533729283325362535, guid: 08d64bbf7dfc4449685b170a461c8d03, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8555168280227281588, guid: 08d64bbf7dfc4449685b170a461c8d03, type: 3}
       propertyPath: m_Pivot.x
@@ -369,6 +373,81 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b89ce44ca0e3994fb508737fc40afe3, type: 3}
+--- !u!1 &327779632
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 327779635}
+  - component: {fileID: 327779634}
+  - component: {fileID: 327779633}
+  m_Layer: 0
+  m_Name: EventSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &327779633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327779632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MoveRepeatDelay: 0.5
+  m_MoveRepeatRate: 0.1
+  m_XRTrackingOrigin: {fileID: 0}
+  m_ActionsAsset: {fileID: -944628639613478452, guid: af228b3d827087a488eadcd3f3194d3b, type: 3}
+  m_PointAction: {fileID: -5339849509678850405, guid: af228b3d827087a488eadcd3f3194d3b, type: 3}
+  m_MoveAction: {fileID: -494319041754494451, guid: af228b3d827087a488eadcd3f3194d3b, type: 3}
+  m_SubmitAction: {fileID: 7134454160915765388, guid: af228b3d827087a488eadcd3f3194d3b, type: 3}
+  m_CancelAction: {fileID: -6612563942413247169, guid: af228b3d827087a488eadcd3f3194d3b, type: 3}
+  m_LeftClickAction: {fileID: 1460466582165599831, guid: af228b3d827087a488eadcd3f3194d3b, type: 3}
+  m_MiddleClickAction: {fileID: 9016202062370067503, guid: af228b3d827087a488eadcd3f3194d3b, type: 3}
+  m_RightClickAction: {fileID: -6226410201930784890, guid: af228b3d827087a488eadcd3f3194d3b, type: 3}
+  m_ScrollWheelAction: {fileID: -7201604804415816557, guid: af228b3d827087a488eadcd3f3194d3b, type: 3}
+  m_TrackedDevicePositionAction: {fileID: -1673259195872086050, guid: af228b3d827087a488eadcd3f3194d3b, type: 3}
+  m_TrackedDeviceOrientationAction: {fileID: -4435080461006468352, guid: af228b3d827087a488eadcd3f3194d3b, type: 3}
+  m_DeselectOnBackgroundClick: 1
+  m_PointerBehavior: 0
+--- !u!114 &327779634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327779632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
+--- !u!4 &327779635
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327779632}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -613,5 +692,5 @@ Transform:
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
