@@ -1186,7 +1186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   background: {fileID: 7625973862834040993}
   stick: {fileID: 3235101007654034182}
-  m_ControlPath: <Touchscreen>/delta
+  m_ControlPath: <Mouse>/delta
 --- !u!1 &3798727259168523763
 GameObject:
   m_ObjectHideFlags: 0
