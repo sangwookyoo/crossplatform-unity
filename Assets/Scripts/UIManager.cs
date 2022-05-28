@@ -7,9 +7,6 @@ public class UIManager : MonoBehaviour
     [Header("UI Controller")]
     public GameObject uiController;
 
-    [Header("Panel View")]
-    public Button changeViewButton;
-
     [Header("Panel Clock")]
     public Text clockText;
 
@@ -24,13 +21,6 @@ public class UIManager : MonoBehaviour
     [Header("Panel System Message")]
     public Transform systemContent;
     public GameObject systemObject;
-
-    [Header("Panel Debug")]
-    public Button button;
-    public Button button01;
-    public Button button02;
-    public Text localText;
-
 
     // Singleton
     private static UIManager _instance;
@@ -65,7 +55,7 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        localText.text = Localization.Instance.GetMessage(0);
+        
     }
 
     void SetUIController()

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
@@ -6,12 +5,17 @@ using Photon.Realtime;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
-    public string roomName;
-    public byte maxPlayer;
+    [Header("Room Settings")]
+    public string roomName = "testRoom";
+    public byte maxPlayer = 16;
+
+    [Header("Input Settings")]
+    public InputField nickName;
+    public Button connectBtn;
+
+    private GameObject _networkPlayer;
 
     private readonly string _gameVersion = "1.0";
-
-    /* Singleton */
     private static NetworkManager _instance;
 
     public static NetworkManager Instance
@@ -43,6 +47,14 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.AutomaticallySyncScene = true;
     }
 
+    void Start()
+    {
+        connectBtn.onClick.AddListener(() => {
+            PhotonNetwork.NickName = nickName.text;
+            NetworkManager.Instance.ConnectToServer();
+        });
+    }
+
     public void ConnectToServer()
     {
         PhotonNetwork.ConnectUsingSettings();
@@ -61,25 +73,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         InitRoom();
     }
 
-    public override void OnJoinedRoom()
-    {
-        Debug.Log($"PhotonNetwork.InRoom: {PhotonNetwork.InRoom}");
-        Debug.Log($"CurrentRoom: {PhotonNetwork.CurrentRoom.Name}");
-        Debug.Log($"PlayerCount: {PhotonNetwork.CurrentRoom.PlayerCount}");
-
-        foreach (var player in PhotonNetwork.CurrentRoom.Players)
-        {
-            Debug.Log($"PlayerName: {player.Value.NickName},{player.Value.ActorNumber}");
-        }
-    }
-
-    public override void OnJoinRoomFailed(short returnCode, string message)
-    {
-        Debug.Log($"OnJoinRoomFailed: {returnCode}:{message}");
-        InitRoom();
-    }
-
-    public void InitRoom()
+    private void InitRoom()
     {
         RoomOptions roomOptions = new RoomOptions();
         roomOptions.MaxPlayers = maxPlayer;
@@ -87,15 +81,44 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         roomOptions.IsVisible = true;
 
         PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, TypedLobby.Default);
+        PhotonNetwork.LoadLevel("Main");
     }
-    
-    public override void OnPlayerEnteredRoom(Player newPlayer)
+
+    public override void OnJoinedRoom()
     {
-        Debug.Log($"New player Entered: {newPlayer.NickName},{newPlayer.ActorNumber}");
+        CreatePlayer();
+        Debug.Log($"PhotonNetwork.InRoom: {PhotonNetwork.InRoom}");
+        Debug.Log($"CurrentRoom: {PhotonNetwork.CurrentRoom.Name}");
+        Debug.Log($"PlayerCount: {PhotonNetwork.CurrentRoom.PlayerCount}");
+
+        foreach (var player in PhotonNetwork.CurrentRoom.Players)
+        {
+            Debug.Log($"PlayerName: ({player.Value.ActorNumber}) {player.Value.NickName}");
+        }
+    }
+
+    private void CreatePlayer()
+    {
+        Vector3 pos = Vector3.zero;
+        Vector3 randPos = pos + Random.insideUnitSphere * 5;
+        randPos.y = 0.5f;
+
+        _networkPlayer = PhotonNetwork.Instantiate("Player/Origin", randPos, Quaternion.identity);
+    } 
+
+    public override void OnJoinRandomFailed(short returnCode, string message)
+    {
+        Debug.Log($"OnJoinRoomFailed: {returnCode}:{message}");
+        InitRoom();
+    }
+
+    public override void OnPlayerEnteredRoom(Player player)
+    {
+        Debug.Log($"New player Entered: {player.NickName},{player.ActorNumber}");
     }
 
     public override void OnLeftRoom()
     {
-        PhotonNetwork.Destroy(GameManager.Instance.player);
+        PhotonNetwork.Destroy(_networkPlayer);
     }
 }
