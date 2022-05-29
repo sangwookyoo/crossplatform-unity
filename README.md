@@ -7,4 +7,4 @@
 ## Feature
 - Control: 3rd Player Controller, UI Controller
 - UI: SafeArea, Message(for System, Chat), UserInfo, FPSDisplay, Billboard
-- etc: Localization(with CSV)
+- etc: Obfuscator, Localization(with CSV)
