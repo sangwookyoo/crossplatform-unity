@@ -1,16 +1,14 @@
 using UnityEngine;
 using UnityEngine.UI;
-using Photon.Pun;
 
-public class Billboard : MonoBehaviourPunCallbacks
+public class Billboard : MonoBehaviour
 {
     private Text _nickName;
 
     void Start()
     {
-        if (!PhotonNetwork.IsConnected) return;
         _nickName = GetComponent<Text>();
-        _nickName.text = photonView.Owner.NickName;
+        //_nickName.text = ;
     }
 
     void Update()

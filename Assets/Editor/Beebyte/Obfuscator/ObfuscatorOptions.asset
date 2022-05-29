@@ -30,7 +30,7 @@ MonoBehaviour:
   maxFalseMethodsPerClass: 150
   unicodeStartInDecimal: 333
   numberOfCharacters: 2
-  createNameTranslationFile: 1
+  createNameTranslationFile: 0
   nameTranslationFile: nameTranslation.txt
   usePreviousObfuscation: 0
   previousNameTranslationFile: nameTranslation.txt
